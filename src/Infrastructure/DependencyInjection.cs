@@ -1,14 +1,9 @@
 ﻿using AutoMapper;
-using Core.Application.Interface;
 using Core.Domain.Entities;
 using Infrastructure.Constants;
 using Infrastructure.DotEnv;
 using Infrastructure.Mapper.Profiles;
-using Infrastructure.Repository;
-using Infrastructure.Security;
-using Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

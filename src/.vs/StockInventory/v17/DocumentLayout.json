@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\infrastructure\\dbcontext\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\dbcontext\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,19 +35,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "DependencyInjection.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\DependencyInjection.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\DependencyInjection.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\DependencyInjection.cs",
+              "RelativeToolTip": "Infrastructure\\DependencyInjection.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAuwA8AAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-28T13:48:02.139Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\DbContext\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Infrastructure\\DbContext\\AppDbContext.cs",
               "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\DbContext\\AppDbContext.cs",
               "RelativeToolTip": "Infrastructure\\DbContext\\AppDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAdAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-28T13:32:20.34Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "UserRoleCheck.cs",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Application\\Model\\Request\\User\\UserRoleCheck.cs",
               "RelativeDocumentMoniker": "Core\\Application\\Model\\Request\\User\\UserRoleCheck.cs",
@@ -55,7 +72,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "UserRoleEnums.cs",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Domain\\Enums\\UserRoleEnums.cs",
               "RelativeDocumentMoniker": "Core\\Domain\\Enums\\UserRoleEnums.cs",
@@ -67,7 +84,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "IsUserInRoleController.cs",
               "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\Controllers\\User\\IsUserInRoleController.cs",
               "RelativeDocumentMoniker": "WebAPI\\Controllers\\User\\IsUserInRoleController.cs",
@@ -75,8 +92,7 @@
               "RelativeToolTip": "WebAPI\\Controllers\\User\\IsUserInRoleController.cs",
               "ViewState": "AQIAACEAAAAAAAAAAAAqwC8AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-10T15:38:08.786Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-10T15:38:08.786Z"
             }
           ]
         }
