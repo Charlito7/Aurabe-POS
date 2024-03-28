@@ -1,6 +1,7 @@
 ﻿using Application.Interfaces.Repositories.User;
 using Core.Application.Interface.Token;
 using Core.Application.Interfaces.Services.User;
+using Core.Application.Model.Request;
 using Infrastructure.Token;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,18 +27,25 @@ namespace WebApi.Controllers.User
         [Authorize]
         [HttpPost]
         [Route("check")]
-        public async Task<IActionResult> IsUserInRoleAsync(string role)
+        public async Task<IActionResult> IsUserInRoleAsync(UserRoleCheck model)
         {
-            
+            if(string.IsNullOrEmpty(model.role))
+            {
+                return BadRequest("Bad model");
+            }
             var userEmail = this.User.FindFirst(ClaimTypes.Email)?.Value;
             if (userEmail == null || string.IsNullOrEmpty(userEmail))
-                return Unauthorized();
+                return BadRequest();
 
             var user = await _userManager.FindByEmailAsync(userEmail);
             if (user == null)
-                return BadRequest();
+                return Unauthorized();
 
-            var result = await _service.DoesUserBelongToRoleAsync(role, userEmail);
+            var result = await _service.DoesUserBelongToRoleAsync(model.role, userEmail);
+            if(result.Result == false)
+            {
+                return Unauthorized();
+            }
             return Ok(result);
         }
     }

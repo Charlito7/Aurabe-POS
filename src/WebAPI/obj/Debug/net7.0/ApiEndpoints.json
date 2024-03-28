@@ -305,9 +305,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "role",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "model",
+        "Type": "Core.Application.Model.Request.UserRoleCheck",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

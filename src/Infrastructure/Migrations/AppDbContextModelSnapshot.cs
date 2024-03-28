@@ -152,6 +152,107 @@ namespace Infrastructure.Migrations
                     b.ToTable("Roles", (string)null);
                 });
 
+            modelBuilder.Entity("Core.Domain.Entity.CategoryEntity", b =>
+                {
+                    b.Property<Guid?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LastDeleted")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LastDeletedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories", (string)null);
+                });
+
+            modelBuilder.Entity("Core.Domain.Entity.ProductEntity", b =>
+                {
+                    b.Property<Guid?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("BarCode")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("Created")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("ExpiredDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime?>("LastDeleted")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LastDeletedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime?>("LastModified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("LastModifiedBy")
+                        .HasColumnType("longtext");
+
+                    b.Property<int>("MinimumReorderQuantity")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("Products", (string)null);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
@@ -254,6 +355,17 @@ namespace Infrastructure.Migrations
                     b.ToTable("UserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Core.Domain.Entity.ProductEntity", b =>
+                {
+                    b.HasOne("Core.Domain.Entity.CategoryEntity", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Core.Domain.Entities.UserRoleEntity", null)
@@ -303,6 +415,11 @@ namespace Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Core.Domain.Entity.CategoryEntity", b =>
+                {
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }

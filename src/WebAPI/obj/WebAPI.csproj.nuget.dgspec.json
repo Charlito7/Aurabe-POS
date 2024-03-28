@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\WebAPI\\WebAPI.csproj": {}
+    "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Core\\Core.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Core\\Core.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Core\\Core.csproj",
-        "packagesPath": "C:\\Users\\wc608162\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Core\\obj\\",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Core.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\wc608162\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -114,43 +114,29 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Infrastructure\\Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\wc608162\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Infrastructure\\obj\\",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\wc608162\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -166,8 +152,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Core\\Core.csproj"
+              "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Core.csproj"
               }
             }
           }
@@ -263,43 +249,29 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\WebAPI\\WebAPI.csproj": {
+    "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\WebAPI\\WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\WebAPI.csproj",
         "projectName": "WebAPI",
-        "projectPath": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\WebAPI\\WebAPI.csproj",
-        "packagesPath": "C:\\Users\\wc608162\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\WebAPI\\obj\\",
+        "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\WebAPI.csproj",
+        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\wc608162\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -315,11 +287,11 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Core\\Core.csproj": {
-                "projectPath": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Core\\Core.csproj"
+              "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Core.csproj": {
+                "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Core.csproj"
               },
-              "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\wc608162\\Downloads\\Github\\stock\\src\\Infrastructure\\Infrastructure.csproj"
+              "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
@@ -407,24 +379,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[7.0.15, 7.0.15]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[7.0.15, 7.0.15]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -433,7 +387,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -25,7 +25,6 @@ public class SignInUserController : BaseController
     public async Task<IActionResult> LoginUserAsync([FromForm]UserLoginModel model)
     {
         var result = await _service.SingInAsync(model);
-
         if(result.IsError)
         {
             return BadRequest(result);

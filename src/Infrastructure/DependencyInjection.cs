@@ -22,7 +22,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = "Server=127.0.0.1;Database=stockdb;Port=3306;Uid=admin;Pwd=@Pbax643#;Connection Timeout=3600";
+        string connectionString = "Server=127.0.0.1;Database=stockdb;Port=3306;Uid=charlito;Pwd=@Pbax643#;Connection Timeout=3600";
         /* services.AddDbContext<AppDbContext>(options =>
              options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 28))));*/
 
