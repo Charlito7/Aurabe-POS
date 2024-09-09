@@ -1,5 +1,6 @@
 ﻿using Core.Application.Interface;
 using Core.Application.Model.Request;
+using Core.Application.Model.Request.Product;
 using Core.Domain.Entity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
@@ -23,7 +24,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "User")]
+    //[Authorize(Roles = "User")]
     [Route("GetProductList", Name = "GetProductsAsync")]
     public async Task<ActionResult<IEnumerable<ProductEntity>>> GetProductsAsync()
     {
@@ -32,10 +33,19 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    [Route("GetProduct", Name = "GetProductById")]
-    public async Task<ActionResult<ProductEntity>> GetProductById(Guid productId)
+    [Route("GetProductListPagination", Name = "GetProductsAsyncPagination")]
+    public async Task<ActionResult<IEnumerable<ProductEntity>>> GetProductsPaginationAsync(int page = 1, int pageSize = 10)
     {
-        var product = await _service.GetProductByIdAsync(productId);
+        var response = await _service.GetProductsWithPaginationAsync(page, pageSize);
+        return Ok(response);
+    }
+
+
+    [HttpPost]
+    [Route("GetProduct", Name = "GetProductById")]
+    public async Task<ActionResult<ProductEntity>> GetProductById([FromBody] GetProductByIDRequest request)
+    {
+        var product = await _service.GetProductByIdAsync(request.productId);
 
         if (product == null)
         {

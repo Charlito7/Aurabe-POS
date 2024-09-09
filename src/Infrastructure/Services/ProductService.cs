@@ -1,7 +1,11 @@
-﻿using Core.Application.Commons.ServiceResult;
+﻿using AutoMapper;
+using Core.Application.Commons.ServiceResult;
 using Core.Application.Interface;
 using Core.Application.Model.Request;
+using Core.Application.Model.Response.Product;
 using Core.Domain.Entity;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Net;
 
 namespace Infrastructure.Services;
@@ -10,32 +14,38 @@ public class ProductService : IProductService
 {
 
     private readonly IRepository<ProductEntity> _repository;
+    private readonly IRepository<CategoryEntity> _categoryRepository;
     private readonly ICategoryService _categoryService;
+    private IMapper _mapper;
 
-    public ProductService(IRepository<ProductEntity> repository, ICategoryService categoryService)
+    public ProductService(IRepository<ProductEntity> repository, ICategoryService categoryService,
+        IMapper mapper, IRepository<CategoryEntity> categoryRepository)
     {
 
-        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+        _repository = repository;
+        _categoryRepository = categoryRepository;
         _categoryService = categoryService;
+        _mapper = mapper;
     }
 
 
 
     public async Task<ServiceResult<IEnumerable<ProductRequest>>> CreateProductsAsync(List<ProductRequest> requests)
     {
-        var results = new List<ProductRequest>();
+        var failedRequests = new List<ProductRequest>();
 
         foreach (var request in requests)
         {
             var categoryResult = await _categoryService.GetCategoryByNameAsync(request.CategoryName);
 
-            if (categoryResult == null)
-            {   
-                results.Add(request);
+            // Ensure that the category was found
+            if (categoryResult?.Result == null)
+            {
+                failedRequests.Add(request);
                 continue;
             }
 
-            ProductEntity productEntity = new ProductEntity()
+            var productEntity = new ProductEntity()
             {
                 Name = request.Name,
                 Description = request.Description,
@@ -47,24 +57,25 @@ public class ProductService : IProductService
                 MinimumReorderQuantity = request.MinimumReorderQuantity,
             };
 
-            var result = await _repository.CreateAsync(productEntity);
+            var isCreated = await _repository.CreateAsync(productEntity);
 
-            if (!result)
+            if (!isCreated)
             {
-                results.Add(request);
+                failedRequests.Add(request);
             }
         }
 
-        // Check if all products were added successfully
-        if (results.Count > 0)
+        // If no failed requests, return success
+        if (failedRequests.Count == 0)
         {
-            return new ServiceResult<IEnumerable<ProductRequest>>(results, true, HttpStatusCode.OK, "All products added with success.");
+            return new ServiceResult<IEnumerable<ProductRequest>>(requests, true, HttpStatusCode.OK, "All products added successfully.");
         }
         else
         {
-            return new ServiceResult<IEnumerable<ProductRequest>>(results, false, HttpStatusCode.BadRequest, "Some products were not saved successfully.");
+            return new ServiceResult<IEnumerable<ProductRequest>>(failedRequests, false, HttpStatusCode.BadRequest, "Some products were not saved successfully.");
         }
     }
+
 
 
     public Task<ServiceResult<HttpStatusCode>> DeleteProductAsync(Guid productId)
@@ -72,14 +83,32 @@ public class ProductService : IProductService
         throw new NotImplementedException();
     }
 
-    public Task<CreateProductRequest> GetProductByIdAsync(Guid productId)
+    public async Task<ServiceResult<ProductResponse>> GetProductByIdAsync(string productId)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(productId)) {
+            return new ServiceResult<ProductResponse>(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        var result = await _repository.GetByIdAsync(Guid.Parse(productId));
+        if (result == null) {
+            return new ServiceResult<ProductResponse>(System.Net.HttpStatusCode.NotFound);
+        }
+
+        var response = _mapper.Map<ProductResponse>(result);
+        var category = await _categoryRepository.FindAsync(p => p.Id == result.CategoryId);
+        
+        if (category == null)
+        {
+            response.CategoryName = "N/A";
+        }
+
+        response.CategoryName = category.Name;
+        return new ServiceResult<ProductResponse>(response);
     }
 
     public async Task<ServiceResult<ProductRequest>> GetProductByNameAsync(string name)
     {
-        var result = await _repository.FindAsync(product => product.Name.Contains(name));
+        var result = await _repository.FindListAsync(product => product.Name.Contains(name));
 
         if (result.Count > 0)
         {
@@ -125,6 +154,47 @@ public class ProductService : IProductService
         return new ServiceResult<IEnumerable<ProductRequest>>(product, true, HttpStatusCode.OK, "Category is added with success");
     }
 
+    public async Task<ServiceResult<GetProductPaginationResponse>> GetProductsWithPaginationAsync(int page = 1, int pageSize = 10)
+    {
+        // Calculate the number of items to skip based on the current page and page size
+        var skip = (page - 1) * pageSize;
 
-   
+        // Retrieve paginated products and include the related category
+        var result = await _repository.GetAllPaginationAsync(skip, pageSize, p => p.Category);
+
+        // Convert the result to the desired ProductRequest model
+        IEnumerable<ProductRequest> product = result
+            .Select(productEntity => new ProductRequest
+            {
+                Id = (Guid)productEntity.Id,
+                Name = productEntity.Name,
+                Description = productEntity.Description,
+                BarCode = productEntity.BarCode,
+                ExpiredDate = productEntity.ExpiredDate,
+                CategoryName = productEntity.Category.Name,
+                Price = productEntity.Price,
+                Quantity = productEntity.Quantity,
+                MinimumReorderQuantity = productEntity.MinimumReorderQuantity
+            });
+
+        // Optionally: Get the total count of products for pagination metadata
+        var totalProducts = (await _repository.GetAllAsync()).Count;
+        var totalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
+
+        // Build the response with pagination metadata
+        var response = new GetProductPaginationResponse
+        {
+            Products = product,
+            Pagination = new PaginationInfo
+            {
+                Page = page,
+                PageSize = pageSize,
+                TotalPages = totalPages,
+                TotalProducts = totalProducts
+            }
+        };
+
+        return new ServiceResult<GetProductPaginationResponse>(response, true, HttpStatusCode.OK, "Category is added with success");
+    }
+
 }

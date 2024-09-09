@@ -30,6 +30,25 @@ public class Repository<T> : IRepository<T> where T : class
         return await query.ToListAsync();
     }
 
+    public async Task<List<T>> GetAllPaginationAsync(int skip, int take, params Expression<Func<T, object>>[] includes)
+    {
+        var query = _entities.AsQueryable();
+
+        // Apply includes if any
+        if (includes != null)
+        {
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+        }
+
+        // Apply pagination
+        query = query.Skip(skip).Take(take);
+
+        return await query.ToListAsync();
+    }
+
 
     public async Task<T> GetByIdAsync(Guid id)
     {
@@ -38,9 +57,13 @@ public class Repository<T> : IRepository<T> where T : class
 #pragma warning restore CS8603 // Possible null reference return.
     }
 
-    public async Task<List<T>> FindAsync(Expression<Func<T, bool>> predicate)
+    public async Task<List<T>> FindListAsync(Expression<Func<T, bool>> predicate)
     {
         return await _entities.Where(predicate).ToListAsync();
+    }
+    public async Task<T> FindAsync(Expression<Func<T, bool>> predicate)
+    {
+        return await _entities.FirstOrDefaultAsync(predicate);
     }
 
     public async Task<bool> CreateAsync(T entity)

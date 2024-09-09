@@ -46,7 +46,7 @@ public class CategoryService : ICategoryService
 
     public async Task<ServiceResult<GetCategoryRequest>> GetCategoryByNameAsync(string name)
     {
-        var result = await _repository.FindAsync(category => category.Name.Contains(name));
+        var result = await _repository.FindListAsync(category => category.Name.Contains(name));
 
         if (result.Count > 0)
         {

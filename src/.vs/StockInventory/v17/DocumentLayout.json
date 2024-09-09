@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\dependencyinjection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7B396666-A25B-419C-8D5E-9E24D0378CE3}|Core\\Core.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\core\\application\\interface\\services\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B396666-A25B-419C-8D5E-9E24D0378CE3}|Core\\Core.csproj|solutionrelative:core\\application\\interface\\services\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\infrastructure\\dbcontext\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\dbcontext\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\infrastructure\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\productservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B36A0987-1654-42FB-BD78-C3912ACADB76}|WebAPI\\WebAPI.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\webapi\\controllers\\user\\isuserinrolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B36A0987-1654-42FB-BD78-C3912ACADB76}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\user\\isuserinrolecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B36A0987-1654-42FB-BD78-C3912ACADB76}|WebAPI\\WebAPI.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\webapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B36A0987-1654-42FB-BD78-C3912ACADB76}|WebAPI\\WebAPI.csproj|solutionrelative:webapi\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7B396666-A25B-419C-8D5E-9E24D0378CE3}|Core\\Core.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\core\\domain\\enums\\userroleenums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B396666-A25B-419C-8D5E-9E24D0378CE3}|Core\\Core.csproj|solutionrelative:core\\domain\\enums\\userroleenums.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\infrastructure\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F0A8E216-7D3E-4DBC-AABF-E77C355B6BA1}|Infrastructure\\Infrastructure.csproj|solutionrelative:infrastructure\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7B396666-A25B-419C-8D5E-9E24D0378CE3}|Core\\Core.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\core\\application\\model\\request\\user\\userrolecheck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7B396666-A25B-419C-8D5E-9E24D0378CE3}|Core\\Core.csproj|solutionrelative:core\\application\\model\\request\\user\\userrolecheck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7B396666-A25B-419C-8D5E-9E24D0378CE3}|Core\\Core.csproj|c:\\users\\user\\documents\\github\\aurabe-pos\\src\\core\\application\\model\\response\\product\\getproductpaginationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7B396666-A25B-419C-8D5E-9E24D0378CE3}|Core\\Core.csproj|solutionrelative:core\\application\\model\\response\\product\\getproductpaginationresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,69 +30,73 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DependencyInjection.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\DependencyInjection.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\DependencyInjection.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\DependencyInjection.cs",
-              "RelativeToolTip": "Infrastructure\\DependencyInjection.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAuwA8AAAAgAAAA",
+              "DocumentIndex": 4,
+              "Title": "GetProductPaginationResponse.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Application\\Model\\Response\\Product\\GetProductPaginationResponse.cs",
+              "RelativeDocumentMoniker": "Core\\Application\\Model\\Response\\Product\\GetProductPaginationResponse.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Application\\Model\\Response\\Product\\GetProductPaginationResponse.cs",
+              "RelativeToolTip": "Core\\Application\\Model\\Response\\Product\\GetProductPaginationResponse.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAuwAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T13:48:02.139Z",
+              "WhenOpened": "2024-09-09T02:49:17.984Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "IProductService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Application\\Interface\\Services\\IProductService.cs",
+              "RelativeDocumentMoniker": "Core\\Application\\Interface\\Services\\IProductService.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Application\\Interface\\Services\\IProductService.cs",
+              "RelativeToolTip": "Core\\Application\\Interface\\Services\\IProductService.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAAwA4AAAA7AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-09T03:20:36.924Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CategoryService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\Services\\CategoryService.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Services\\CategoryService.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\Services\\CategoryService.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\CategoryService.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAuwDIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-08T17:57:12.072Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AppDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\DbContext\\AppDbContext.cs",
-              "RelativeDocumentMoniker": "Infrastructure\\DbContext\\AppDbContext.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\DbContext\\AppDbContext.cs",
-              "RelativeToolTip": "Infrastructure\\DbContext\\AppDbContext.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAA0AAAA",
+              "Title": "ProductService.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\Services\\ProductService.cs",
+              "RelativeDocumentMoniker": "Infrastructure\\Services\\ProductService.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Infrastructure\\Services\\ProductService.cs",
+              "RelativeToolTip": "Infrastructure\\Services\\ProductService.cs",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAgwJwAAABAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-28T13:32:20.34Z",
+              "WhenOpened": "2024-09-05T03:57:32.126Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UserRoleCheck.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Application\\Model\\Request\\User\\UserRoleCheck.cs",
-              "RelativeDocumentMoniker": "Core\\Application\\Model\\Request\\User\\UserRoleCheck.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Application\\Model\\Request\\User\\UserRoleCheck.cs",
-              "RelativeToolTip": "Core\\Application\\Model\\Request\\User\\UserRoleCheck.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-10T17:14:32.604Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserRoleEnums.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Domain\\Enums\\UserRoleEnums.cs",
-              "RelativeDocumentMoniker": "Core\\Domain\\Enums\\UserRoleEnums.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\Core\\Domain\\Enums\\UserRoleEnums.cs",
-              "RelativeToolTip": "Core\\Domain\\Enums\\UserRoleEnums.cs",
-              "ViewState": "AQIAAAQAAAAAAAAAAAAAAAoAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-10T15:45:56.199Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "IsUserInRoleController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\Controllers\\User\\IsUserInRoleController.cs",
-              "RelativeDocumentMoniker": "WebAPI\\Controllers\\User\\IsUserInRoleController.cs",
-              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\Controllers\\User\\IsUserInRoleController.cs",
-              "RelativeToolTip": "WebAPI\\Controllers\\User\\IsUserInRoleController.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAqwC8AAAANAAAA",
+              "Title": "ProductController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\Controllers\\ProductController.cs",
+              "RelativeDocumentMoniker": "WebAPI\\Controllers\\ProductController.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\GitHub\\Aurabe-POS\\src\\WebAPI\\Controllers\\ProductController.cs",
+              "RelativeToolTip": "WebAPI\\Controllers\\ProductController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAqwCYAAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-10T15:38:08.786Z"
+              "WhenOpened": "2024-09-05T03:23:01.329Z",
+              "EditorCaption": ""
             }
           ]
         }

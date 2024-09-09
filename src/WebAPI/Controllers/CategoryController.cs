@@ -16,14 +16,14 @@ public class CategoryController : ControllerBase
         _service = service;
     }
 
-    [HttpGet]
+    [HttpPost("GetAll", Name ="GetAllCategory")]
     public async Task<ActionResult<IEnumerable<CreateCategoryRequest>>> GetProducts()
     {
         var category = await _service.GetCategoryAsync();
         return Ok(category);
     }
 
-    [HttpPost]
+    [HttpPost("Create", Name = "CreateCategory")]
     public async Task<ActionResult<int>> CreateCategory(CreateCategoryRequest category)
     {
         if (!ModelState.IsValid)

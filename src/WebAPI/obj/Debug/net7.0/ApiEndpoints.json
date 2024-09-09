@@ -101,28 +101,8 @@
   },
   {
     "ContainingType": "WebAPI.Controllers.CategoryController",
-    "Method": "GetProducts",
-    "RelativePath": "api/category",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": [
-      {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Core.Application.Model.Request.CreateCategoryRequest, Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
-  },
-  {
-    "ContainingType": "WebAPI.Controllers.CategoryController",
     "Method": "CreateCategory",
-    "RelativePath": "api/category",
+    "RelativePath": "api/category/Create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -136,6 +116,26 @@
     "ReturnTypes": [
       {
         "Type": "System.Int32",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.CategoryController",
+    "Method": "GetProducts",
+    "RelativePath": "api/category/GetAll",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Core.Application.Model.Request.CreateCategoryRequest, Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -196,9 +196,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "productId",
-        "Type": "System.Guid",
-        "IsRequired": false
+        "Name": "request",
+        "Type": "Core.Application.Model.Request.Product.GetProductByIDRequest",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
@@ -221,6 +221,37 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Core.Domain.Entity.ProductEntity, Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.ProductController",
+    "Method": "GetProductsPaginationAsync",
+    "RelativePath": "api/products/GetProductListPagination",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "pageSize",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[Core.Domain.Entity.ProductEntity, Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
