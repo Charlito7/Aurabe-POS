@@ -90,6 +90,31 @@ public class Repository<T> : IRepository<T> where T : class
         }
     }
 
+    public async Task<T> CreateTAsync(T entity)
+    {
+        try
+        {
+            _entities.Add(entity); // Add the entity to the DbSet
+            await _context.SaveChangesAsync(); // Save the changes to the database
+
+            // Return the entity that was created
+            return entity;
+        }
+        catch (DbUpdateException ex)
+        {
+            // Log the exception or handle it accordingly
+            Console.Error.WriteLine($"Error saving changes to the database: {ex.Message}");
+            return null; // Return null if the operation fails
+        }
+        catch (Exception ex)
+        {
+            // Handle other exceptions, log them, and return null
+            Console.Error.WriteLine($"An unexpected error occurred: {ex.Message}");
+            return null;
+        }
+    }
+
+
 
     public async Task<bool> UpdateAsync(T entity)
     {
@@ -115,9 +140,9 @@ public class Repository<T> : IRepository<T> where T : class
         }
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(Expression<Func<T, bool>> predicate)
     {
-        var entity = await _entities.FindAsync(id);
+        var entity = await _entities.FindAsync(predicate);
         if (entity != null)
         {
             _entities.Remove(entity);

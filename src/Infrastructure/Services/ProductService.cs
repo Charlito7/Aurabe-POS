@@ -83,6 +83,34 @@ public class ProductService : IProductService
         throw new NotImplementedException();
     }
 
+    public async Task<ServiceResult<ProductResponse>> GetProductByBarCodeAsync(string bareCode)
+    {
+        if (string.IsNullOrEmpty(bareCode))
+        {
+            return new ServiceResult<ProductResponse>(System.Net.HttpStatusCode.BadRequest);
+        }
+
+        var result = await _repository.FindAsync(product => product.BarCode.Contains(bareCode) && product.Quantity >= 0);
+
+        if (result == null)
+        {
+            return new ServiceResult<ProductResponse>(System.Net.HttpStatusCode.NotFound);
+        }
+
+        var response = _mapper.Map<ProductResponse>(result);
+
+        var category = await _categoryRepository.FindAsync(p => p.Id == result.CategoryId);
+
+        if (category == null)
+        {
+            response.CategoryName = "N/A";
+        }
+
+        response.CategoryName = category.Name;
+        return new ServiceResult<ProductResponse>(response);
+
+    }
+
     public async Task<ServiceResult<ProductResponse>> GetProductByIdAsync(string productId)
     {
         if (string.IsNullOrEmpty(productId)) {

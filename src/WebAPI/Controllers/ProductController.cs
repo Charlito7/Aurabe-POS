@@ -42,10 +42,10 @@ public class ProductController : ControllerBase
 
 
     [HttpPost]
-    [Route("GetProduct", Name = "GetProductById")]
-    public async Task<ActionResult<ProductEntity>> GetProductById([FromBody] GetProductByIDRequest request)
+    [Route("GetProductByID", Name = "GetProductById")]
+    public async Task<ActionResult<ProductEntity>> GetProductById([FromBody] GetProductRequest request)
     {
-        var product = await _service.GetProductByIdAsync(request.productId);
+        var product = await _service.GetProductByIdAsync(request.value);
 
         if (product == null)
         {
@@ -54,7 +54,19 @@ public class ProductController : ControllerBase
 
         return Ok(product);
     }
+    [HttpPost]
+    [Route("GetProductByBarCode", Name = "GetProductByBarCode")]
+    public async Task<ActionResult<ProductEntity>> GetProductByBarCode([FromBody] GetProductRequest request)
+    {
+        var product = await _service.GetProductByBarCodeAsync(request.value);
 
+        if (product == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(product);
+    }
     [HttpPost]
     public async Task<ActionResult<HttpStatusCode>> CreateProduct(List<ProductRequest> products)
     {

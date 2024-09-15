@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Application.Model.Request.Product
+namespace Core.Application.Interface.Services.Sales
 {
-    public class GetProductByIDRequest
+    internal interface IDeleteSalesMetadataServices
     {
-        public string productId { get; set; }
     }
 }

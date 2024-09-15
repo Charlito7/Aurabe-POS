@@ -16,6 +16,8 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
 
     public DbSet<CategoryEntity> Categories { get; set; }
     public DbSet<ProductEntity> Products { get; set; }
+    public DbSet<ProductSalesEntity> ProductSales { get; set; }
+    public DbSet<SalesMetadataEntity> SalesMetadata { get; set; }
 
 
 

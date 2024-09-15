@@ -485,3 +485,19 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+*.dll
+/src/.vs/StockInventory/DesignTimeBuild/.dtbcache.v2
+/src/.vs/StockInventory/v17/.futdcache.v2
+/src/.vs/StockInventory/v17/.suo
+/src/.vs/StockInventory/v17/DocumentLayout.json
+/src/Core/bin/Debug/net7.0/Core.dll
+/src/Core/bin/Debug/net7.0/Core.pdb
+/src/Core/obj/Debug/net7.0/ref/Core.dll
+/src/Core/obj/Debug/net7.0/refint/Core.dll
+/src/Core/obj/Debug/net7.0/Core.AssemblyInfo.cs
+/src/Core/obj/Debug/net7.0/Core.AssemblyInfoInputs.cache
+/src/Core/obj/Debug/net7.0/Core.csproj.CoreCompileInputs.cache
+/src/Core/obj/Debug/net7.0/Core.dll
+/src/Core/obj/Debug/net7.0/Core.pdb
+/src/Core/obj/Debug/net7.0/Core.sourcelink.json
+/src/Infrastructure/obj/Debug/net7.0/ref/Infrastructure.dll
