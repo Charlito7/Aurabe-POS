@@ -37,7 +37,7 @@ public class CreateSalesService : ICreateSalesService
     public async Task<ServiceResult<CreateSalesResponse>> CreateSalesAsync(CreateSalesRequest request)
     {
         CreateSalesResponse salesResponse = new CreateSalesResponse();
-        decimal amount = 0;
+        decimal amount = request.SalesMetadata.ShippingCost;
         //Check request
         if (string.IsNullOrEmpty(request.SalesMetadata.Status.ToString()))
         {
@@ -111,10 +111,12 @@ public class CreateSalesService : ICreateSalesService
 
         };
         var result = await _salesMetadataRepository.CreateTAsync(salesMetadataEntity);
+        if (result == null) {
+            return new ServiceResult<CreateSalesResponse>(salesResponse, false, HttpStatusCode.BadRequest, "Metadata failed");
+
+        }
 
         //Save the Products sales
-        if (result != null)
-        {
             foreach (var item in request.ProductSales) {
                 ProductSalesEntity product = new ProductSalesEntity()
                 {
@@ -136,7 +138,7 @@ public class CreateSalesService : ICreateSalesService
                     return new ServiceResult<CreateSalesResponse>(salesResponse, false, HttpStatusCode.InternalServerError, "Cannot add product: "+product.ProductCode);
                 }
             }            
-        }
+        
 
 
         return new ServiceResult<CreateSalesResponse>(salesResponse, true, HttpStatusCode.OK, "");

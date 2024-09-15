@@ -189,15 +189,41 @@
   },
   {
     "ContainingType": "WebAPI.Controllers.ProductController",
-    "Method": "GetProductById",
-    "RelativePath": "api/products/GetProduct",
+    "Method": "GetProductByBarCode",
+    "RelativePath": "api/products/GetProductByBarCode",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
         "Name": "request",
-        "Type": "Core.Application.Model.Request.Product.GetProductByIDRequest",
+        "Type": "Core.Application.Model.Request.Product.GetProductRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Core.Domain.Entity.ProductEntity",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.ProductController",
+    "Method": "GetProductById",
+    "RelativePath": "api/products/GetProductByID",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "Core.Application.Model.Request.Product.GetProductRequest",
         "IsRequired": true
       }
     ],
@@ -295,6 +321,32 @@
       }
     ],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.Sales.SalesController",
+    "Method": "CreateSales",
+    "RelativePath": "api/sales/CreateSales",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "sales",
+        "Type": "Core.Application.Model.Request.Sales.CreateSalesRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Net.HttpStatusCode",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "WebApi.Controllers.User.SignInUserController",

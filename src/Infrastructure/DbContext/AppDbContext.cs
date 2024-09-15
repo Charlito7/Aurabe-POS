@@ -71,6 +71,8 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
         builder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("UserRoles"); });
         builder.Entity<ProductEntity>(entity => { entity.ToTable("Products"); });
         builder.Entity<CategoryEntity>(entity => { entity.ToTable("Categories"); });
+        builder.Entity<SalesMetadataEntity>(entity => { entity.ToTable("SalesMetadata"); });
+        builder.Entity<ProductSalesEntity>(entity => { entity.ToTable("ProductSales"); });
 
         // Configure entity properties, relationships, etc.
         /*modelBuilder.ApplyConfiguration(new SupplierEntityConfiguration());
