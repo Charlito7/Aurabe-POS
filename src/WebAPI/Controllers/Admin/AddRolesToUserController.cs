@@ -34,7 +34,7 @@ namespace WebApi.Controllers.Admin
             {
                 var myModel = new AddRolesToUserModel
                 {
-                    Email = "mpalaniappan@i2systems.com",
+                    Email = "mpalaniappan@gmail.com",
                     Roles = new string[] { "User", "Admin"}
                 };
 

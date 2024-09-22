@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
 using Core.Application.Commons.ServiceResult;
 using Core.Application.Interface;
-using Core.Application.Model.Request;
+using Core.Application.Model.Request.Product;
 using Core.Application.Model.Response.Product;
 using Core.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Net;
 
-namespace Infrastructure.Services;
+namespace Infrastructure.Services.Products;
 
 public class ProductService : IProductService
 {
@@ -55,6 +55,8 @@ public class ProductService : IProductService
                 Quantity = request.Quantity,
                 Price = request.Price,
                 MinimumReorderQuantity = request.MinimumReorderQuantity,
+                IsReturnAccepted = request.IsReturnAccepted,
+                ReturnTimeAccepted = request.ReturnTimeAccepted
             };
 
             var isCreated = await _repository.CreateAsync(productEntity);
@@ -87,14 +89,14 @@ public class ProductService : IProductService
     {
         if (string.IsNullOrEmpty(bareCode))
         {
-            return new ServiceResult<ProductResponse>(System.Net.HttpStatusCode.BadRequest);
+            return new ServiceResult<ProductResponse>(HttpStatusCode.BadRequest);
         }
 
         var result = await _repository.FindAsync(product => product.BarCode.Contains(bareCode) && product.Quantity >= 0);
 
         if (result == null)
         {
-            return new ServiceResult<ProductResponse>(System.Net.HttpStatusCode.NotFound);
+            return new ServiceResult<ProductResponse>(HttpStatusCode.NotFound);
         }
 
         var response = _mapper.Map<ProductResponse>(result);
@@ -113,18 +115,20 @@ public class ProductService : IProductService
 
     public async Task<ServiceResult<ProductResponse>> GetProductByIdAsync(string productId)
     {
-        if (string.IsNullOrEmpty(productId)) {
-            return new ServiceResult<ProductResponse>(System.Net.HttpStatusCode.BadRequest);
+        if (string.IsNullOrEmpty(productId))
+        {
+            return new ServiceResult<ProductResponse>(HttpStatusCode.BadRequest);
         }
 
         var result = await _repository.GetByIdAsync(Guid.Parse(productId));
-        if (result == null) {
-            return new ServiceResult<ProductResponse>(System.Net.HttpStatusCode.NotFound);
+        if (result == null)
+        {
+            return new ServiceResult<ProductResponse>(HttpStatusCode.NotFound);
         }
 
         var response = _mapper.Map<ProductResponse>(result);
         var category = await _categoryRepository.FindAsync(p => p.Id == result.CategoryId);
-        
+
         if (category == null)
         {
             response.CategoryName = "N/A";
@@ -167,15 +171,18 @@ public class ProductService : IProductService
         var result = await _repository.GetAllAsync(p => p.Category);
         IEnumerable<ProductRequest> product = result
         .Select(productEntity => new ProductRequest
-        {   Id   = (Guid)productEntity.Id,
+        {
+            Id = (Guid)productEntity.Id,
             Name = productEntity.Name,
             Description = productEntity.Description,
-            BarCode= productEntity.BarCode,
+            BarCode = productEntity.BarCode,
             ExpiredDate = productEntity.ExpiredDate,
             CategoryName = productEntity.Category.Name,
             Price = productEntity.Price,
             Quantity = productEntity.Quantity,
-            MinimumReorderQuantity = productEntity.MinimumReorderQuantity
+            MinimumReorderQuantity = productEntity.MinimumReorderQuantity,
+            IsReturnAccepted = productEntity.IsReturnAccepted,
+            ReturnTimeAccepted = productEntity.ReturnTimeAccepted,
             // Add other properties as needed
         });
 
@@ -202,7 +209,9 @@ public class ProductService : IProductService
                 CategoryName = productEntity.Category.Name,
                 Price = productEntity.Price,
                 Quantity = productEntity.Quantity,
-                MinimumReorderQuantity = productEntity.MinimumReorderQuantity
+                MinimumReorderQuantity = productEntity.MinimumReorderQuantity,
+                IsReturnAccepted = productEntity.IsReturnAccepted,
+                ReturnTimeAccepted = productEntity.ReturnTimeAccepted,
             });
 
         // Optionally: Get the total count of products for pagination metadata

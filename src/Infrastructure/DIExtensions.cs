@@ -6,6 +6,7 @@ using Infrastructure.Repositories.User;
 using Infrastructure.Repository;
 using Infrastructure.Security;
 using Infrastructure.Services;
+using Infrastructure.Services.Products;
 using Infrastructure.Services.Sales;
 using Infrastructure.Token;
 using Microsoft.Extensions.DependencyInjection;

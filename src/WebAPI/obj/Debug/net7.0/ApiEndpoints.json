@@ -155,7 +155,7 @@
     "Parameters": [
       {
         "Name": "products",
-        "Type": "System.Collections.Generic.List\u00601[[Core.Application.Model.Request.ProductRequest, Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[Core.Application.Model.Request.Product.ProductRequest, Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],
@@ -300,7 +300,7 @@
     "Parameters": [
       {
         "Name": "product",
-        "Type": "Core.Application.Model.Request.ProductRequest",
+        "Type": "Core.Application.Model.Request.Product.ProductRequest",
         "IsRequired": true
       }
     ],
@@ -316,7 +316,7 @@
     "Parameters": [
       {
         "Name": "products",
-        "Type": "System.Collections.Generic.List\u00601[[Core.Application.Model.Request.ProductRequest, Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.List\u00601[[Core.Application.Model.Request.Product.ProductRequest, Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],

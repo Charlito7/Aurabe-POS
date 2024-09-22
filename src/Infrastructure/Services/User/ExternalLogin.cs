@@ -43,7 +43,7 @@ namespace Infrastructure.Services.User
 
             var domain = email.Split('@')[1].ToString();
 
-            if (domain.ToLower() != "i2systems.com")
+            if (domain.ToLower() != "gmail.com")
             {
                 return new ServiceResult<ExternalLoginResponse>(HttpStatusCode.Forbidden);
             }

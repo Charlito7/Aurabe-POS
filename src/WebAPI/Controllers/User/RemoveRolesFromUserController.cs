@@ -37,20 +37,7 @@ namespace WebApi.Controllers.User
             if (isAdminResult.Result != true)
             {
                 return Unauthorized();
-            }
-
-
-            if (Environment.GetEnvironmentVariable(InfrastructureConstants.ASP_NET_CORE_ENVIRONMENT_NAME)
-                                                                        == InfrastructureConstants.DEV_ENVIRONMENT_NAME && data == "test")
-            {
-                var myModel = new AddRolesToUserModel
-                {
-                    Email = "dartarubens@gmail.com",
-                    Roles = new string[] { "Manager", "Planner" }
-                };
-
-                data = JsonConvert.SerializeObject(myModel);
-            }
+            }  
 
             if (string.IsNullOrWhiteSpace(data))
                 return BadRequest();
