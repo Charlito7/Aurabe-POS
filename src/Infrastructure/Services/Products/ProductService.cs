@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Core.Application.Commons.ServiceResult;
 using Core.Application.Interface;
+using Core.Application.Interface.Repository;
 using Core.Application.Model.Request.Product;
+using Core.Application.Model.Response;
 using Core.Application.Model.Response.Product;
 using Core.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
@@ -15,17 +17,23 @@ public class ProductService : IProductService
 
     private readonly IRepository<ProductEntity> _repository;
     private readonly IRepository<CategoryEntity> _categoryRepository;
+    private readonly IProductRepository _productRepository;
     private readonly ICategoryService _categoryService;
     private IMapper _mapper;
 
-    public ProductService(IRepository<ProductEntity> repository, ICategoryService categoryService,
-        IMapper mapper, IRepository<CategoryEntity> categoryRepository)
+    public ProductService(
+            IRepository<ProductEntity> repository, 
+            ICategoryService categoryService,
+            IMapper mapper, 
+            IRepository<CategoryEntity> categoryRepository,
+            IProductRepository productRepository)
     {
 
         _repository = repository;
         _categoryRepository = categoryRepository;
         _categoryService = categoryService;
         _mapper = mapper;
+        _productRepository = productRepository;
     }
 
 
@@ -234,4 +242,9 @@ public class ProductService : IProductService
         return new ServiceResult<GetProductPaginationResponse>(response, true, HttpStatusCode.OK, "Category is added with success");
     }
 
+    public async Task<IEnumerable<GetProductSuggestionsResponse>> GetProductSuggestions(string userInput)
+    {
+        var dbResult = await _productRepository.GetProductSuggestions(userInput);
+        return _mapper.Map<List<GetProductSuggestionsResponse>>(dbResult);
+    }
 }

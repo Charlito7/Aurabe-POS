@@ -1,9 +1,11 @@
 ﻿using Application.Interfaces.Repositories.User;
 using Core.Application.Interface;
+using Core.Application.Interface.Repository;
 using Core.Application.Interface.Services.Sales;
 using Core.Application.Interface.Token;
 using Infrastructure.Repositories.User;
 using Infrastructure.Repository;
+using Infrastructure.Repository.Product;
 using Infrastructure.Security;
 using Infrastructure.Services;
 using Infrastructure.Services.Products;
@@ -41,6 +43,7 @@ namespace Infrastructure
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IProductUpdateService, ProductUpdateService>();
             services.AddScoped<ICreateSalesService, CreateSalesService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
 
 
             //Security

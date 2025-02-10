@@ -1,4 +1,5 @@
-﻿using Core.Domain.Commons;
+﻿using Core.Application.Model.Response;
+using Core.Domain.Commons;
 using Core.Domain.Entities;
 using Core.Domain.Entity;
 using Microsoft.AspNetCore.Identity;
@@ -18,6 +19,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
     public DbSet<ProductEntity> Products { get; set; }
     public DbSet<ProductSalesEntity> ProductSales { get; set; }
     public DbSet<SalesMetadataEntity> SalesMetadata { get; set; }
+    public DbSet<GetProductSuggestionsResponse> ProductSuggestionsResponses { get; set; }
 
 
 
@@ -73,6 +75,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
         builder.Entity<CategoryEntity>(entity => { entity.ToTable("Categories"); });
         builder.Entity<SalesMetadataEntity>(entity => { entity.ToTable("SalesMetadata"); });
         builder.Entity<ProductSalesEntity>(entity => { entity.ToTable("ProductSales"); });
+        builder.Entity<GetProductSuggestionsResponse>().HasNoKey();
 
         // Configure entity properties, relationships, etc.
         /*modelBuilder.ApplyConfiguration(new SupplierEntityConfiguration());

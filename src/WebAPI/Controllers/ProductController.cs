@@ -1,6 +1,7 @@
 ﻿using Core.Application.Interface;
 using Core.Application.Model.Request.Product;
 using Core.Domain.Entity;
+using Infrastructure.Services.Products;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -143,6 +144,28 @@ public class ProductController : ControllerBase
     {
         await _service.DeleteProductAsync(productId);
         return NoContent();
+    }
+
+    [HttpPost("suggestions/get")]
+    public async Task<IActionResult> GetInventorySuggestionsAsync([FromQuery] string userInput)
+    {
+        try
+        {
+            var inventorySuggestions = await _service.GetProductSuggestions(userInput);
+            if (inventorySuggestions == null || !inventorySuggestions.Any())
+            {
+                return NotFound(new { Errors = "Error C1000" });
+            }
+
+            return Ok(inventorySuggestions);
+        }
+        catch (Exception ex)
+        {
+            {
+                return NotFound();
+            }
+        }
+
     }
 }
 
