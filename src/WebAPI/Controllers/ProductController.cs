@@ -1,4 +1,5 @@
 ﻿using Core.Application.Interface;
+using Core.Application.Interface.Token;
 using Core.Application.Model.Request.Product;
 using Core.Domain.Entity;
 using Infrastructure.Services.Products;
@@ -6,28 +7,33 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using WebApi.Controllers.Base;
 
 namespace WebAPI.Controllers;
 
 
 [Route("api/products")]
 [ApiController]
-public class ProductController : ControllerBase
+public class ProductController : AuthorizeBaseController
 {
     private readonly IProductService _service;
     private readonly IProductUpdateService _updateService;
 
-    public ProductController(IProductService service, IProductUpdateService updateService)
+    public ProductController(
+            IProductService service, 
+            IProductUpdateService updateService, 
+            ITokenServices tokenServices) : base(tokenServices)
     {
         _service = service;
         _updateService = updateService; 
     }
 
     [HttpPost]
-    //[Authorize(Roles = "User")]
+    [Authorize(Roles = "User")]
     [Route("GetProductList", Name = "GetProductsAsync")]
     public async Task<ActionResult<IEnumerable<ProductEntity>>> GetProductsAsync()
     {
+
         var products = await _service.GetProductsAsync();
         return Ok(products);
     }
@@ -55,6 +61,7 @@ public class ProductController : ControllerBase
         return Ok(product);
     }
     [HttpPost]
+    [Authorize(Roles = "User")]
     [Route("GetProductByBarCode", Name = "GetProductByBarCode")]
     public async Task<ActionResult<ProductEntity>> GetProductByBarCode([FromBody] GetProductRequest request)
     {
@@ -147,6 +154,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost("suggestions/get")]
+    [Authorize(Roles = "User")]
     public async Task<IActionResult> GetInventorySuggestionsAsync([FromQuery] string userInput)
     {
         try

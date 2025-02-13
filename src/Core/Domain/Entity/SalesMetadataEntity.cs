@@ -19,10 +19,8 @@ public class SalesMetadataEntity : AuditableEntity
     public string Status { get; set; }
     public string Notes { get; set; }
     public string SellerCode { get; set; }
-    public string SellerName { get; set; }
     public decimal TotalAmount { get; set; } 
     public decimal CashReceived { get; set; }
-    public decimal ChangeDue { get; set; } 
     public string PaymentType { get; set; }
     public string PaymentTypeTransactionID { get; set; }  
     public ICollection<ProductSalesEntity> ProductSales { get; set; }

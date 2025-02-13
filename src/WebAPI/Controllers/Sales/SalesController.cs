@@ -33,7 +33,8 @@ public class SalesController : ControllerBase
             // Return BadRequest with error messages
             return BadRequest(new { Errors = errorMessages });
         }
-        var result = await _service.CreateSalesAsync(sales);
+
+        var result = await _service.CreateSalesAsync(User, sales);
         if (result.IsOk)
         {
             return Ok(result);

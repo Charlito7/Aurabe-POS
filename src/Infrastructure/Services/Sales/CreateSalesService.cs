@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -34,26 +35,17 @@ public class CreateSalesService : ICreateSalesService
         _productRepository = productRepository;
         _mapper = mapper;
     }
-    public async Task<ServiceResult<CreateSalesResponse>> CreateSalesAsync(CreateSalesRequest request)
+    public async Task<ServiceResult<CreateSalesResponse>> CreateSalesAsync(ClaimsPrincipal user, CreateSalesRequest request)
     {
+        var sellerId = user.Claims
+                .Where(c => c.Type == System.Security.Claims.ClaimTypes.NameIdentifier)
+                .Select(c => c.Value)
+                .FirstOrDefault();
         CreateSalesResponse salesResponse = new CreateSalesResponse();
-        decimal amount = request.SalesMetadata.ShippingCost;
-        //Check request
-        if (string.IsNullOrEmpty(request.SalesMetadata.Status.ToString()))
-        {
-            return new ServiceResult<CreateSalesResponse>(salesResponse, false, HttpStatusCode.BadRequest, "");
-
-        }
+        decimal amount = 0;
 
         //Check seller info
 
-        // Check
-        if (request.SalesMetadata.ChangeDue != (request.SalesMetadata.CashReceived - request.SalesMetadata.TotalAmount))
-        {
-            return new ServiceResult<CreateSalesResponse>(salesResponse, false, HttpStatusCode.BadRequest, 
-                "Error on the refund");
-
-        }
 
         //check 
         if (request.SalesMetadata.PaymentType == PaymentMethodEnum.MONCASH.ToString() || request.SalesMetadata.PaymentType == PaymentMethodEnum.NATCASH.ToString() || request.SalesMetadata.PaymentType == PaymentMethodEnum.PAV.ToString())
@@ -86,26 +78,20 @@ public class CreateSalesService : ICreateSalesService
             amount += prod.Price*req.Quantity;
         }
 
-        if(amount != request.SalesMetadata.TotalAmount)
-        {
-            return new ServiceResult<CreateSalesResponse>(salesResponse, false, HttpStatusCode.BadRequest, "");
-        }
 
         // Save the Metadata
         var salesMetadataEntity = new SalesMetadataEntity()
         {
-            TransactionDate = request.SalesMetadata.TransactionDate,
-            CustomerCode = request.SalesMetadata.CustomerCode,
-            OrderTaxPercentage = request.SalesMetadata.OrderTaxPercentage,
-            ShippingCost = request.SalesMetadata.ShippingCost,
-            ShippingAddress = request.SalesMetadata.ShippingAddress,
-            Status = request.SalesMetadata.Status.ToString(),
+            TransactionDate = DateTime.UtcNow,
+            CustomerCode = "N/A",
+            OrderTaxPercentage = 0,
+            ShippingCost = 0,
+            ShippingAddress = "N/A",
+            Status = SalesStatusEnum.DELIVERED.ToString(),
             Notes = request.SalesMetadata.Notes ?? string.Empty,
-            SellerCode = request.SalesMetadata.SellerCode,
-            SellerName = request.SalesMetadata.SellerName,
-            TotalAmount = request.SalesMetadata.TotalAmount,
+            SellerCode = sellerId,
+            TotalAmount = amount,
             CashReceived = request.SalesMetadata.CashReceived,
-            ChangeDue = request.SalesMetadata.ChangeDue,
             PaymentType = request.SalesMetadata.PaymentType.ToString(),
             PaymentTypeTransactionID = request.SalesMetadata.PaymentTypeTransactionID
 
