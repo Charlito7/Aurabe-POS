@@ -59,10 +59,11 @@ namespace WebApi.Controllers.Token
                                                 accessToken);
                     if (isTokenValidated)
                     {
+                        IList<string> userRoles = await _userManager.GetRolesAsync(user);
                         var newGeneratedToken = _services
                         .BuildToken(VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_SECRET),
                     VariableBuilder.GetVariable(EnvFileConstants.ISSUER), VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE),
-                                                user);
+                                                user, userRoles);
                         HttpContext.Session.SetString("Token", newGeneratedToken);
 
                         var newRefreshToken = _services.GenerateRefreshToken();

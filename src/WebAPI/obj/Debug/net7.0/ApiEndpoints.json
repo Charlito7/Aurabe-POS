@@ -33,7 +33,8 @@
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [],
+    "EndpointName": "CreateUserAccount"
   },
   {
     "ContainingType": "WebApi.Controllers.User.AdminSignInUserController",
@@ -49,7 +50,8 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [],
+    "EndpointName": "AdminUserLogin"
   },
   {
     "ContainingType": "WebApi.Controllers.Admin.AddRolesToUserController",
@@ -65,7 +67,8 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [],
+    "EndpointName": "AddRolesToUser"
   },
   {
     "ContainingType": "WebApi.Controllers.Admin.AddRolesToUserControllerv2",
@@ -81,7 +84,8 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [],
+    "EndpointName": "LocallyAddRolesToUser"
   },
   {
     "ContainingType": "WebApi.Controllers.User.RemoveRolesFromUserController",
@@ -97,7 +101,8 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [],
+    "EndpointName": "RemoveRolesFromUser"
   },
   {
     "ContainingType": "WebAPI.Controllers.CategoryController",
@@ -123,7 +128,8 @@
         ],
         "StatusCode": 200
       }
-    ]
+    ],
+    "EndpointName": "CreateCategory"
   },
   {
     "ContainingType": "WebAPI.Controllers.CategoryController",
@@ -143,7 +149,8 @@
         ],
         "StatusCode": 200
       }
-    ]
+    ],
+    "EndpointName": "GetAllCategory"
   },
   {
     "ContainingType": "WebAPI.Controllers.ProductController",
@@ -211,7 +218,8 @@
         ],
         "StatusCode": 200
       }
-    ]
+    ],
+    "EndpointName": "GetProductByBarCode"
   },
   {
     "ContainingType": "WebAPI.Controllers.ProductController",
@@ -237,7 +245,8 @@
         ],
         "StatusCode": 200
       }
-    ]
+    ],
+    "EndpointName": "GetProductById"
   },
   {
     "ContainingType": "WebAPI.Controllers.ProductController",
@@ -257,7 +266,8 @@
         ],
         "StatusCode": 200
       }
-    ]
+    ],
+    "EndpointName": "GetProductsAsync"
   },
   {
     "ContainingType": "WebAPI.Controllers.ProductController",
@@ -288,7 +298,8 @@
         ],
         "StatusCode": 200
       }
-    ]
+    ],
+    "EndpointName": "GetProductsAsyncPagination"
   },
   {
     "ContainingType": "WebAPI.Controllers.ProductController",
@@ -320,7 +331,8 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [],
+    "EndpointName": "UpdateProduct"
   },
   {
     "ContainingType": "WebAPI.Controllers.ProductController",
@@ -336,7 +348,8 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [],
+    "EndpointName": "UpdateProducts"
   },
   {
     "ContainingType": "WebAPI.Controllers.Sales.SalesController",
@@ -362,7 +375,29 @@
         ],
         "StatusCode": 200
       }
-    ]
+    ],
+    "EndpointName": "CreateSales"
+  },
+  {
+    "ContainingType": "WebAPI.Controllers.Sales.SalesController",
+    "Method": "GetSalesList",
+    "RelativePath": "api/sales/GetSalesList",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Net.HttpStatusCode",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetSalesList"
   },
   {
     "ContainingType": "WebApi.Controllers.User.SignInUserController",
@@ -383,7 +418,8 @@
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [],
+    "EndpointName": "UserLogin"
   },
   {
     "ContainingType": "WebApi.Controllers.User.GetUserProfileDataController",
@@ -412,6 +448,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "WebAPI.Controllers.User.GetUserRolesController",
+    "Method": "GetUserRolesAsync",
+    "RelativePath": "user/roles/get",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "WebApi.Controllers.Token.RefreshTokenController",
     "Method": "RefreshToken",
     "RelativePath": "user/token/refresh",
@@ -430,7 +476,8 @@
         "IsRequired": false
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [],
+    "EndpointName": "RefreshToken"
   },
   {
     "ContainingType": "WebApi.Controllers.Token.ValidateToken",

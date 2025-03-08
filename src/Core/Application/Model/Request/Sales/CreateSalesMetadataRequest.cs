@@ -10,7 +10,7 @@ namespace Core.Application.Model.Request.Sales;
 
 public class CreateSalesMetadataRequest
 {
-    public string Discount { get; set; }
+    public decimal Discount { get; set; }
     public string Notes { get; set; }
     [Required]
     public decimal CashReceived { get; set; }

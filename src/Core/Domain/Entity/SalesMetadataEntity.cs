@@ -15,6 +15,7 @@ public class SalesMetadataEntity : AuditableEntity
     public string CustomerCode { get; set; }
     public decimal OrderTaxPercentage { get; set; }
     public decimal ShippingCost { get; set; }
+    public decimal Discount { get; set; }
     public string ShippingAddress { get; set; }
     public string Status { get; set; }
     public string Notes { get; set; }
@@ -22,6 +23,7 @@ public class SalesMetadataEntity : AuditableEntity
     public decimal TotalAmount { get; set; } 
     public decimal CashReceived { get; set; }
     public string PaymentType { get; set; }
-    public string PaymentTypeTransactionID { get; set; }  
+    public string PaymentTypeTransactionID { get; set; }
+    public string PaymentCustomerName{ get; set; }
     public ICollection<ProductSalesEntity> ProductSales { get; set; }
 }

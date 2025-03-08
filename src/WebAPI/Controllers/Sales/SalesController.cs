@@ -35,11 +35,21 @@ public class SalesController : ControllerBase
         }
 
         var result = await _service.CreateSalesAsync(User, sales);
-        if (result.IsOk)
+        if (!result.IsOk) 
         {
-            return Ok(result);
+            return BadRequest(result);
         }
-        return BadRequest(result);
+        return Ok(result);
+       
     }
 
+
+    [HttpPost]
+    [Route("GetSalesList", Name = "GetSalesList")]
+    public async Task<ActionResult<HttpStatusCode>> GetSalesList()
+    {
+      
+        return Ok();
+
+    }
 }

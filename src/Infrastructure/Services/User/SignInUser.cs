@@ -7,10 +7,6 @@ using Core.Application.Model.Response;
 using Infrastructure.Constants;
 using Infrastructure.DotEnv;
 using Infrastructure.Security;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,15 +46,17 @@ namespace Infrastructure.Services.User
                 return new ServiceResult<UserSignInResponse>(HttpStatusCode.Unauthorized);
             }
 
-
+            IList<string> userRoles = await _userManager.GetRolesAsync(user);
             var response = new UserSignInResponse
             {
                 Token = _tokenServices
                 .BuildToken(VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_SECRET),
                 VariableBuilder.GetVariable(EnvFileConstants.ISSUER),
-                VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE), user),
+                VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE), user, userRoles),
 
-                RefreshToken = _tokenServices.GenerateRefreshToken()
+                RefreshToken = _tokenServices.GenerateRefreshToken(),
+                UserRoles = userRoles,
+                FullName = user.FirstName + " " + user.LastName
             };
             
             user.RefreshToken = response.RefreshToken;

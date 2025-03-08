@@ -13,4 +13,6 @@ namespace Core.Application.Interface.Services.Sales;
 public interface ICreateSalesService
 {
     public Task<ServiceResult<CreateSalesResponse>> CreateSalesAsync(ClaimsPrincipal user,CreateSalesRequest requests);
+    public Task<ServiceResult<List<GetSalesListResponse>>> GetSalesListAsync(ClaimsPrincipal user);
+
 }

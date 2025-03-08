@@ -24,42 +24,30 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
 
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        using (var transaction = Database.BeginTransaction())
+        var entries = ChangeTracker.Entries()
+            .Where(e => e.Entity is AuditableEntity && (e.State == EntityState.Added || e.State == EntityState.Modified));
+
+        foreach (var entry in entries)
         {
-            try
+            var entity = (AuditableEntity)entry.Entity;
+
+            if (entry.State == EntityState.Added)
             {
-
-                var entries = ChangeTracker.Entries()
-                    .Where(e => e.Entity is AuditableEntity && (e.State == EntityState.Added || e.State == EntityState.Modified));
-
-                foreach (var entry in entries)
-                {
-                    var entity = (AuditableEntity)entry.Entity;
-
-                    if (entry.State == EntityState.Added)
-                    {
-                        entity.Created = DateTime.UtcNow;
-                        entity.CreatedBy = "SetCreatedBy"; // Set the appropriate value or retrieve it from the current user, if applicable.
-                        entity.IsDeleted = false;
-                    }
-
-                    entity.LastModified = DateTime.UtcNow;
-                    entity.LastModifiedBy = "SetLastModifiedBy"; // Set the appropriate value or retrieve it from the current user, if applicable.
-                }
-
-                transaction.Commit();
+                entity.Created = DateTime.UtcNow;
+                entity.CreatedBy = "SetCreatedBy";
+                entity.IsDeleted = false;
             }
-            catch (Exception)
-            {
-                transaction.Rollback();
-                throw;
-            }
+
+            entity.LastModified = DateTime.UtcNow;
+            entity.LastModifiedBy = "SetLastModifiedBy";
         }
-        return base.SaveChanges();
+
+        // No manual transaction; let EF handle it
+        return await base.SaveChangesAsync(cancellationToken);
     }
+
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -77,12 +65,5 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
         builder.Entity<ProductSalesEntity>(entity => { entity.ToTable("ProductSales"); });
         builder.Entity<GetProductSuggestionsResponse>().HasNoKey();
 
-        // Configure entity properties, relationships, etc.
-        /*modelBuilder.ApplyConfiguration(new SupplierEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new OrderEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new OrderItemEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new ProductEntityConfiguration());
-        modelBuilder.ApplyConfiguration(new CategoryEntityConfiguration());*/
-        // Add configurations for other entities if needed
     }
 }

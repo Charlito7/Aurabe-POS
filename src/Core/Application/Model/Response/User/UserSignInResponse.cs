@@ -10,4 +10,6 @@ public class UserSignInResponse
 {
     public string? Token { get; set; }
     public string? RefreshToken { get; set; }
+    public string? FullName { get; set; }
+    public IList<string>? UserRoles { get; set; }
 }
