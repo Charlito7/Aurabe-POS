@@ -1,10 +1,8 @@
-﻿using Core.Application.Interface.Token;
+﻿
+using Core.Application.Interface.Token;
 using Infrastructure.Constants;
 using Infrastructure.DotEnv;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Net.Http.Headers;
 
@@ -30,31 +28,27 @@ namespace WebApi.Controllers.Base
                 context.Result = new BadRequestObjectResult(errors);
             }
 
-            var headers = context.HttpContext.Request.Headers;
-
-            if (headers.ContainsKey("Authorization"))
+            // Read the token from the cookie
+            var accessToken = context.HttpContext.Request.Cookies["SessionId"];
+            if (!string.IsNullOrEmpty(accessToken))
             {
-                bool isTokenValidated = false;
-                var accessToken = headers[HeaderNames.Authorization].ToString().Replace("Bearer ", string.Empty);
-                if (!string.IsNullOrEmpty(accessToken))
-                {
-                    isTokenValidated = _tokenServices
+                bool isTokenValidated = _tokenServices
                     .ValidateTokenWithExpiryTime(
-                    VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_SECRET),
-                    VariableBuilder.GetVariable(EnvFileConstants.ISSUER), 
-                    VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE),
-                    accessToken);
-                }
-                else
-                {
-                    context.Result = new UnauthorizedObjectResult("Invalid Token");
-                }
+                        VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_SECRET),
+                        VariableBuilder.GetVariable(EnvFileConstants.ISSUER),
+                        VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE),
+                        accessToken);
+
                 if (!isTokenValidated)
                 {
                     context.Result = new UnauthorizedObjectResult("Invalid Token");
                 }
             }
-            
+            else
+            {
+                context.Result = new UnauthorizedObjectResult("Token not found");
+            }
+
             base.OnActionExecuting(context);
         }
 

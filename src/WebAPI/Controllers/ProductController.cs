@@ -1,4 +1,5 @@
-﻿using Core.Application.Interface;
+﻿
+using Core.Application.Interface;
 using Core.Application.Interface.Token;
 using Core.Application.Model.Request.Product;
 using Core.Domain.Entity;
@@ -29,7 +30,7 @@ public class ProductController : AuthorizeBaseController
     }
 
     [HttpPost]
-    [Authorize(Roles = "User")]
+    [Authorize]
     [Route("GetProductList", Name = "GetProductsAsync")]
     public async Task<ActionResult<IEnumerable<ProductEntity>>> GetProductsAsync()
     {
@@ -61,7 +62,7 @@ public class ProductController : AuthorizeBaseController
         return Ok(product);
     }
     [HttpPost]
-    [Authorize(Roles = "User")]
+    [Authorize]
     [Route("GetProductByBarCode", Name = "GetProductByBarCode")]
     public async Task<ActionResult<ProductEntity>> GetProductByBarCode([FromBody] GetProductRequest request)
     {
@@ -154,7 +155,7 @@ public class ProductController : AuthorizeBaseController
     }
 
     [HttpPost("suggestions/get")]
-    [Authorize(Roles = "User")]
+    [Authorize]
     public async Task<IActionResult> GetInventorySuggestionsAsync([FromQuery] string userInput)
     {
         try

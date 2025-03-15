@@ -17,7 +17,6 @@ namespace Infrastructure
             //User
             services.AddScoped<ICreateUserService, CreateUserService>();
             services.AddScoped<ISignInUserService, SignInUserService>();
-            services.AddScoped<IMyExternalLoginService, MyExternalLoginService>();
             services.AddScoped<IAdminAssignRoles, AdminAssignRoles>();    
             services.AddScoped<IAdminRemoveRoles, AdminRemoveRoles>();
             services.AddScoped<IDoesUserBelongToRole, DoesUserBelongToRole>();  

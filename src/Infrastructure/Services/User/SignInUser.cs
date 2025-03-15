@@ -8,8 +8,6 @@ using Infrastructure.Constants;
 using Infrastructure.DotEnv;
 using Infrastructure.Security;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Services.User
 {
@@ -27,7 +25,9 @@ namespace Infrastructure.Services.User
             _tokenServices = tokenServices;
         }
 
-        public async Task<ServiceResult<UserSignInResponse>> SingInAsync(UserLoginModel model)
+        public async Task<ServiceResult<UserSignInResponse>> 
+            
+            SingInAsync(UserLoginModel model)
         {
             var user = await _userManager.FindByEmailAsync(model.UserName!);
             if (user == null )

@@ -204,7 +204,7 @@ public class ProductService : IProductService
 
         // Retrieve paginated products and include the related category
         var result = await _repository.GetAllPaginationAsync(skip, pageSize, p => p.Category);
-
+         
         // Convert the result to the desired ProductRequest model
         IEnumerable<ProductRequest> product = result
             .Select(productEntity => new ProductRequest
@@ -224,7 +224,7 @@ public class ProductService : IProductService
 
         // Optionally: Get the total count of products for pagination metadata
         var totalProducts = (await _repository.GetAllAsync()).Count;
-        var totalPages = (int)Math.Ceiling(totalProducts / (double)pageSize);
+        var totalPages = (int)Math.Ceiling(totalProducts / (double)pageSize); 
 
         // Build the response with pagination metadata
         var response = new GetProductPaginationResponse

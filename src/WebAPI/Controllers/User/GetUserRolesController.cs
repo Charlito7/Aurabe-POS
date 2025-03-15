@@ -1,5 +1,4 @@
 ﻿using Application.Interfaces.Repositories.User;
-using Core.Application.Commons.ServiceResult;
 using Core.Application.Interface.Token;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +23,7 @@ namespace WebAPI.Controllers.User
              .Where(c => c.Type == System.Security.Claims.ClaimTypes.Role)
              .Select(c => c.Value).ToList();
             return Ok(roles);
+
         }
     }
 }

@@ -10,25 +10,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddAWSService<IAmazonS3>();
 builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
         options.TokenLifespan = TimeSpan.FromHours(3));
 
-
-//builder.Services.Configure<IdentityOptions>(opts => { opts.SignIn.RequireConfirmedEmail= true; });
-
-//builder.Services.AddAuthentication()
-//    .AddGoogle("google", googleOptions =>
-//    {
-//        googleOptions.ClientId = builder.Configuration["Authentication:Google:ClientId"]!;
-//        googleOptions.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]!;
-//    });
-
+builder.Logging.AddConsole();
 var app = builder.Build();
-
+app.UseCors("GeneralPolicy");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -37,7 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseForwardedHeaders();
 }
 
-app.UseCors("GeneralPolicy");
+
 
 app.UseHsts();
 
@@ -59,12 +49,22 @@ app.UseSession();
 
 app.Use(async (context, next) =>
 {
-    var token = context.Session.GetString("Token");
-    if (!string.IsNullOrEmpty(token))
+    // Check if the Cookie header is present
+    if (context.Request.Headers.TryGetValue("Cookie", out var cookieHeader))
     {
-        if (!context.Request.Headers.ContainsKey("Authorization"))
+        // Extract the SessionId from the Cookie header
+        var cookies = cookieHeader.ToString().Split(';');
+        var sessionIdCookie = cookies.FirstOrDefault(c => c.Trim().StartsWith("SessionId="));
+
+        if (!string.IsNullOrEmpty(sessionIdCookie))
         {
-            context.Request.Headers.Add("Authorization", "Bearer " + token);
+            var sessionId = sessionIdCookie.Split('=')[1];
+
+            // If the Authorization header is not already set, add it with the SessionId as a Bearer token
+            if (!context.Request.Headers.ContainsKey("Authorization"))
+            {
+                context.Request.Headers.Add("Authorization", "Bearer " + sessionId);
+            }
         }
     }
 

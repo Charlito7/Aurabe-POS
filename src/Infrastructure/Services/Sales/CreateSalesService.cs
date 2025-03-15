@@ -48,6 +48,7 @@ public class CreateSalesService : ICreateSalesService
     public async Task<ServiceResult<CreateSalesResponse>> CreateSalesAsync(ClaimsPrincipal claim, CreateSalesRequest request)
     {
         List<ProductEntity> productsListReachedTarget = new List<ProductEntity>();
+
         var email = claim.Claims
         .Where(c => c.Type == System.Security.Claims.ClaimTypes.Email)
         .Select(c => c.Value)
@@ -137,7 +138,8 @@ public class CreateSalesService : ICreateSalesService
                     CashReceived = request.SalesMetadata.CashReceived,
                     PaymentType = request.SalesMetadata.PaymentType.ToString(),
                     PaymentTypeTransactionID = request.SalesMetadata.PaymentTypeTransactionID,
-                    PaymentCustomerName = request.SalesMetadata.PaymentCustomerName
+                    PaymentCustomerName = request.SalesMetadata.PaymentCustomerName,
+                    CreatedBy = user.Id
                 };
 
               await _applicationDbContext.SalesMetadata.AddAsync(salesMetadataEntity);

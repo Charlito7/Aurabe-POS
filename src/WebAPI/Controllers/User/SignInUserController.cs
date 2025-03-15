@@ -1,5 +1,7 @@
-﻿using Core.Application.Interfaces.Services.User;
+﻿using Core.Application.Commons.ServiceResult;
+using Core.Application.Interfaces.Services.User;
 using Core.Application.Model.Request;
+using Core.Application.Model.Response;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Controllers.Base;
@@ -19,17 +21,55 @@ public class SignInUserController : BaseController
 
     [HttpPost]
     [AllowAnonymous]
-    [Route("login", Name ="UserLogin")]
+    [Route("login", Name = "UserLogin")]
     //[ApiExplorerSettings(IgnoreApi = true)]
     //[NonAction]
-    public async Task<IActionResult> LoginUserAsync([FromForm]UserLoginModel model)
+    public async Task<ActionResult<UserSignInResponse>> LoginUserAsync(UserLoginModel model)
     {
+        if (!ModelState.IsValid)
+        {
+            // Extract error messages from ModelState
+            var errorMessages = ModelState.Values
+                .SelectMany(v => v.Errors)
+                .Select(e => e.ErrorMessage)
+                .ToList();
+
+            // Return BadRequest with error messages
+            return BadRequest(new { Errors = errorMessages });
+        }
         var result = await _service.SingInAsync(model);
-        if(result.IsError)
+
+        if (result.IsError)
         {
             return BadRequest(result);
         }
-     
-        return Ok(result);
+
+        var response = result.Result;
+
+        Response.Cookies.Append("SessionId", response.Token, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = false,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddMinutes(60)
+        });
+
+
+        Response.Cookies.Append("RefreshToken", response.RefreshToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = false,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddDays(7)
+        });
+
+        UserSignInResponse res = new UserSignInResponse()
+        {
+            FullName = response.FullName,
+            UserRoles = response.UserRoles
+        };
+        
+        return Ok(new ServiceResult<UserSignInResponse>(res));
     }
+
 }

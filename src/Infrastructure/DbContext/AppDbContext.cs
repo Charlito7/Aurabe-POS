@@ -2,6 +2,7 @@
 using Core.Domain.Commons;
 using Core.Domain.Entities;
 using Core.Domain.Entity;
+using Core.Domain.Procedures;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
     public DbSet<ProductSalesEntity> ProductSales { get; set; }
     public DbSet<SalesMetadataEntity> SalesMetadata { get; set; }
     public DbSet<GetProductSuggestionsResponse> ProductSuggestionsResponses { get; set; }
+    public DbSet<GetAllSalesMetadata> GetAllSalesMetadata { get; set; }
 
 
 
@@ -36,7 +38,6 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
             if (entry.State == EntityState.Added)
             {
                 entity.Created = DateTime.UtcNow;
-                entity.CreatedBy = "SetCreatedBy";
                 entity.IsDeleted = false;
             }
 
@@ -64,6 +65,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
         builder.Entity<SalesMetadataEntity>(entity => { entity.ToTable("SalesMetadata"); });
         builder.Entity<ProductSalesEntity>(entity => { entity.ToTable("ProductSales"); });
         builder.Entity<GetProductSuggestionsResponse>().HasNoKey();
+        builder.Entity<GetAllSalesMetadata>().HasNoKey();
 
     }
 }

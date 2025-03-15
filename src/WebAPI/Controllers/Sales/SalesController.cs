@@ -1,23 +1,32 @@
 ﻿using Core.Application.Interface;
 using Core.Application.Interface.Services.Sales;
+using Core.Application.Interface.Token;
 using Core.Application.Model.Request;
 using Core.Application.Model.Request.Sales;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using WebApi.Controllers.Base;
 
 namespace WebAPI.Controllers.Sales;
 
 [Route("api/sales")]
 [ApiController]
-public class SalesController : ControllerBase
+public class SalesController : AuthorizeBaseController
 {
         private readonly ICreateSalesService _service;
+    private readonly IGetSalesService _getSalesService;
 
-    public SalesController(ICreateSalesService service)
+    public SalesController(
+        ICreateSalesService service, 
+        IGetSalesService getSalesService,
+        ITokenServices tokenServices) : base(tokenServices)
     {
-            _service = service;
+        _service = service;
+        _getSalesService = getSalesService;
     }
 
+    [Authorize]
     [HttpPost]
     [Route("CreateSales", Name = "CreateSales")]
     public async Task<ActionResult<HttpStatusCode>> CreateSales(CreateSalesRequest sales)
@@ -43,13 +52,13 @@ public class SalesController : ControllerBase
        
     }
 
-
+    [Authorize]
     [HttpPost]
-    [Route("GetSalesList", Name = "GetSalesList")]
-    public async Task<ActionResult<HttpStatusCode>> GetSalesList()
+    [Route("GetSalesListPagination", Name = "GetSalesListPagination")]
+    public async Task<ActionResult<HttpStatusCode>> GetSalesListAsync(int page = 1, int pageSize = 10)
     {
-      
-        return Ok();
+        var sales = await _getSalesService.GetAllSalesMetadataServiceAsync(User, page, pageSize);
+        return Ok(sales);
 
     }
 }
