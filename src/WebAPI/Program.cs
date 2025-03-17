@@ -49,10 +49,9 @@ app.UseSession();
 
 app.Use(async (context, next) =>
 {
-    // Check if the Cookie header is present
+
     if (context.Request.Headers.TryGetValue("Cookie", out var cookieHeader))
     {
-        // Extract the SessionId from the Cookie header
         var cookies = cookieHeader.ToString().Split(';');
         var sessionIdCookie = cookies.FirstOrDefault(c => c.Trim().StartsWith("SessionId="));
 
@@ -60,7 +59,7 @@ app.Use(async (context, next) =>
         {
             var sessionId = sessionIdCookie.Split('=')[1];
 
-            // If the Authorization header is not already set, add it with the SessionId as a Bearer token
+
             if (!context.Request.Headers.ContainsKey("Authorization"))
             {
                 context.Request.Headers.Add("Authorization", "Bearer " + sessionId);
@@ -73,7 +72,7 @@ app.Use(async (context, next) =>
 
 app.MapControllers();
 
-//app.MigrateDatabase();
+
 app.Seeder();
 app.MigrateDatabase();
 app.Run();

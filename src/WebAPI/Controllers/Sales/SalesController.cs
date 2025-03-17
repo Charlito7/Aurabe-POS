@@ -1,18 +1,16 @@
-﻿using Core.Application.Interface;
-using Core.Application.Interface.Services.Sales;
+﻿using Core.Application.Interface.Services.Sales;
 using Core.Application.Interface.Token;
-using Core.Application.Model.Request;
 using Core.Application.Model.Request.Sales;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WebApi.Controllers.Base;
+using WebApi.Filters;
 
 namespace WebAPI.Controllers.Sales;
 
 [Route("api/sales")]
 [ApiController]
-public class SalesController : AuthorizeBaseController
+public class SalesController : BaseController
 {
         private readonly ICreateSalesService _service;
     private readonly IGetSalesService _getSalesService;
@@ -20,13 +18,13 @@ public class SalesController : AuthorizeBaseController
     public SalesController(
         ICreateSalesService service, 
         IGetSalesService getSalesService,
-        ITokenServices tokenServices) : base(tokenServices)
+        ITokenServices tokenServices)
     {
         _service = service;
         _getSalesService = getSalesService;
     }
 
-    [Authorize]
+    [AuthorizeRoles]
     [HttpPost]
     [Route("CreateSales", Name = "CreateSales")]
     public async Task<ActionResult<HttpStatusCode>> CreateSales(CreateSalesRequest sales)
@@ -52,13 +50,30 @@ public class SalesController : AuthorizeBaseController
        
     }
 
-    [Authorize]
+   [AuthorizeRoles]
     [HttpPost]
     [Route("GetSalesListPagination", Name = "GetSalesListPagination")]
     public async Task<ActionResult<HttpStatusCode>> GetSalesListAsync(int page = 1, int pageSize = 10)
     {
         var sales = await _getSalesService.GetAllSalesMetadataServiceAsync(User, page, pageSize);
         return Ok(sales);
+
+    }
+   [AuthorizeRoles]
+    [HttpPost]
+    [Route("GetSaleDetails", Name = "GetSaleDetails")]
+    public async Task<ActionResult<HttpStatusCode>> GetSaleDetailsAsync(Guid saleMetadataId)
+    {
+        try
+        {
+            var sales = await _getSalesService.GetSaleDetailsServiceAsync(User, saleMetadataId);
+            return Ok(sales);
+        }
+        catch
+        {
+            return BadRequest();
+        }
+      
 
     }
 }

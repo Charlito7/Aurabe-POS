@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using WebApi.Controllers.Base;
+using WebApi.Filters;
 
 namespace WebAPI.Controllers;
 
@@ -30,7 +31,7 @@ public class ProductController : AuthorizeBaseController
     }
 
     [HttpPost]
-    [Authorize]
+    [AuthorizeRoles]
     [Route("GetProductList", Name = "GetProductsAsync")]
     public async Task<ActionResult<IEnumerable<ProductEntity>>> GetProductsAsync()
     {
@@ -62,7 +63,7 @@ public class ProductController : AuthorizeBaseController
         return Ok(product);
     }
     [HttpPost]
-    [Authorize]
+    [AuthorizeRoles]
     [Route("GetProductByBarCode", Name = "GetProductByBarCode")]
     public async Task<ActionResult<ProductEntity>> GetProductByBarCode([FromBody] GetProductRequest request)
     {
@@ -155,7 +156,7 @@ public class ProductController : AuthorizeBaseController
     }
 
     [HttpPost("suggestions/get")]
-    [Authorize]
+    [AuthorizeRoles("Seller")]
     public async Task<IActionResult> GetInventorySuggestionsAsync([FromQuery] string userInput)
     {
         try

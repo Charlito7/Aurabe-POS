@@ -1,10 +1,8 @@
-﻿
-using Core.Application.Interface.Token;
+﻿using Core.Application.Interface.Token;
 using Infrastructure.Constants;
 using Infrastructure.DotEnv;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Net.Http.Headers;
 
 namespace WebApi.Controllers.Base
 {
@@ -26,6 +24,7 @@ namespace WebApi.Controllers.Base
                     .SelectMany(x => x.Value!.Errors)
                     .ToList();
                 context.Result = new BadRequestObjectResult(errors);
+                return;
             }
 
             // Read the token from the cookie
@@ -42,16 +41,20 @@ namespace WebApi.Controllers.Base
                 if (!isTokenValidated)
                 {
                     context.Result = new UnauthorizedObjectResult("Invalid Token");
+                    return;
                 }
+
+                // Set the user principal if the token is valid
+                var principal = _tokenServices.GetPrincipalFromToken(accessToken);
+                context.HttpContext.User = principal;
             }
             else
             {
                 context.Result = new UnauthorizedObjectResult("Token not found");
+                return;
             }
 
             base.OnActionExecuting(context);
         }
-
-
     }
 }

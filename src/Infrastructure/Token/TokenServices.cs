@@ -2,21 +2,23 @@
 using Core.Domain.Entities;
 using Infrastructure.Constants;
 using Infrastructure.DotEnv;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.  Claims;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Token;
 
 public class TokenServices : ITokenServices
 {
-  
+    private readonly ILogger<TokenServices> _logger;
+
+    public TokenServices(ILogger<TokenServices> logger)
+    {
+        _logger = logger;
+    }
 
     public string BuildToken(string key, string issuer, string audience, UserEntity user, IList<string> userRoles)
     {
@@ -169,5 +171,62 @@ public class TokenServices : ITokenServices
         }
 
         return true;
+    }
+
+    public ClaimsPrincipal GetPrincipalFromToken(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+
+        try
+        {
+            // Validate the token and extract the principal
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_SECRET))),
+                ValidateIssuer = true,
+                ValidIssuer = VariableBuilder.GetVariable(EnvFileConstants.ISSUER),
+                ValidateAudience = true,
+                ValidAudience = VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE),
+                ValidateLifetime = true, // Ensure the token is not expired
+                ClockSkew = TimeSpan.Zero // No tolerance for expiration time
+            };
+
+            // Validate the token and return the principal
+            var principal = tokenHandler.ValidateToken(token, validationParameters, out var validatedToken);
+
+
+            return principal;
+        }
+        catch (SecurityTokenExpiredException ex)
+        {
+            _logger.LogError("Token validation failed: Token has expired. Exception: {Message}", ex.Message);
+            return null;
+        }
+        catch (SecurityTokenInvalidSignatureException ex)
+        {
+            _logger.LogError("Token validation failed: Invalid token signature. Exception: {Message}", ex.Message);
+            return null;
+        }
+        catch (SecurityTokenInvalidIssuerException ex)
+        {
+            _logger.LogError("Token validation failed: Invalid token issuer. Exception: {Message}", ex.Message);
+            return null;
+        }
+        catch (SecurityTokenInvalidAudienceException ex)
+        {
+            _logger.LogError("Token validation failed: Invalid token audience. Exception: {Message}", ex.Message);
+            return null;
+        }
+        catch (SecurityTokenException ex)
+        {
+            _logger.LogError("Token validation failed: General security token exception. Exception: {Message}", ex.Message);
+            return null;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Token validation failed: Unexpected exception. Exception: {Message}", ex.Message);
+            return null;
+        }
     }
 }

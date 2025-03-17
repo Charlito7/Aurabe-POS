@@ -21,6 +21,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
     public DbSet<ProductSalesEntity> ProductSales { get; set; }
     public DbSet<SalesMetadataEntity> SalesMetadata { get; set; }
     public DbSet<GetProductSuggestionsResponse> ProductSuggestionsResponses { get; set; }
+    public DbSet<SalesMetadataAndProductResponse> SalesMetadataAndProductResponses { get; set; }
     public DbSet<GetAllSalesMetadata> GetAllSalesMetadata { get; set; }
 
 
@@ -65,6 +66,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
         builder.Entity<SalesMetadataEntity>(entity => { entity.ToTable("SalesMetadata"); });
         builder.Entity<ProductSalesEntity>(entity => { entity.ToTable("ProductSales"); });
         builder.Entity<GetProductSuggestionsResponse>().HasNoKey();
+        builder.Entity<SalesMetadataAndProductResponse>().HasNoKey(); 
         builder.Entity<GetAllSalesMetadata>().HasNoKey();
 
     }

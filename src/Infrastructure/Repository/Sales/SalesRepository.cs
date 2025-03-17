@@ -39,4 +39,11 @@ public class SalesRepository : ISalesRepository
 .FromSqlRaw("CALL GetAllSalesMetadataPaginationBySeller({0}, {1}, {2})", pageNumber, pageSize, sellerId)
 .ToListAsync();
     }
+    
+    public async Task<IEnumerable<SalesMetadataAndProductResponse>> GetSaleDetailsAsync(Guid salesMetadataId, string userId)
+    {
+        return await _context.SalesMetadataAndProductResponses
+.FromSqlRaw("CALL GetAllSalesMetadataAndProduct({0}, {1})", salesMetadataId, userId)
+.ToListAsync();
+    }
 }

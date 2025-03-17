@@ -16,4 +16,5 @@ public interface ITokenServices
     bool ValidateTokenWithoutExpiryTime(string key, string issuer, string audience, string token);
     string GenerateRefreshToken();
     ClaimsPrincipal GetPrincipalFromExpiredToken(string token, string key);
+    ClaimsPrincipal GetPrincipalFromToken(string token);
 }

@@ -13,5 +13,6 @@ namespace Core.Application.Interface.Services.Sales;
 
 public interface IGetSalesService
 {
+    Task<ServiceResult<IEnumerable<SalesMetadataAndProductResponseDTO>>> GetSaleDetailsServiceAsync(ClaimsPrincipal claim, Guid saleMetadataId);
     Task<ServiceResult<GetSalesPaginationResponse>> GetAllSalesMetadataServiceAsync(ClaimsPrincipal claim,int pageNumber, int pageSize);
 }

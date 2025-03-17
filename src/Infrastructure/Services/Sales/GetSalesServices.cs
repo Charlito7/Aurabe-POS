@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.Repositories.User;
 using AutoMapper;
+using Azure;
 using Core.Application.Commons.ServiceResult;
 using Core.Application.Interface;
 using Core.Application.Interface.Repository;
@@ -20,6 +21,7 @@ using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using MySqlConnector;
 
 namespace Infrastructure.Services.Sales;
 
@@ -85,6 +87,32 @@ public class GetSalesServices : IGetSalesService
         };
 
         return new ServiceResult<GetSalesPaginationResponse>(response, true, HttpStatusCode.OK, "");
+
+    }
+
+    public async Task<ServiceResult<IEnumerable<SalesMetadataAndProductResponseDTO>>> GetSaleDetailsServiceAsync(ClaimsPrincipal claim, Guid saleMetadataId)
+    {
+        var email = claim.Claims
+  .Where(c => c.Type == System.Security.Claims.ClaimTypes.Email)
+  .Select(c => c.Value)
+  .FirstOrDefault();
+
+        var user = await _userManager.FindByEmailAsync(email!);
+        if (user == null)
+        {
+            return new ServiceResult<IEnumerable<SalesMetadataAndProductResponseDTO>>(HttpStatusCode.BadRequest);
+        }
+        try
+        {
+            IEnumerable<SalesMetadataAndProductResponse> saleDetails = await _salesRepository.GetSaleDetailsAsync(saleMetadataId, user.Id);
+            var salesMetadataResponseDTO = _mapper.Map<SalesMetadataAndProductResponseDTO[]>(saleDetails);
+            return new ServiceResult<IEnumerable<SalesMetadataAndProductResponseDTO>>(salesMetadataResponseDTO, true, HttpStatusCode.OK, "");
+        }
+        catch 
+        {
+            return new ServiceResult<IEnumerable<SalesMetadataAndProductResponseDTO>>(null, false, HttpStatusCode.InternalServerError, "");
+
+        }
 
     }
 }

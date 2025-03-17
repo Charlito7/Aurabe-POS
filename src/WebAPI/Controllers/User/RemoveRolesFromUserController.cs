@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using System.Security.Claims;
 using System.Text.Json.Serialization;
 using WebApi.Controllers.Base;
+using WebApi.Filters;
 
 namespace WebApi.Controllers.User
 {
@@ -24,7 +25,7 @@ namespace WebApi.Controllers.User
         }
 
         [HttpPost]
-        [Authorize]
+        [AuthorizeRoles]
         [Route("remove", Name ="RemoveRolesFromUser")]
         public async Task<IActionResult> AdminAssignRolesAsync([FromBody] string data)
         {

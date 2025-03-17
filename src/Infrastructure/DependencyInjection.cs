@@ -30,22 +30,23 @@ public static class DependencyInjection
                 connectionString, serverVersion,
                 b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName));
         });
-       /* services.AddDbContext<AppDbContext>(options =>
-        {
-            options.UseSqlServer(
-                connectionString,
-                b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName));
-        });
-        */
+        /* services.AddDbContext<AppDbContext>(options =>
+         {
+             options.UseSqlServer(
+                 connectionString,
+                 b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName));
+         });
+         */
 
         services.AddCors(options =>
         {
             options.AddPolicy("GeneralPolicy",
                 policy =>
                 {
-                    policy.AllowAnyOrigin()
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
+                    policy.WithOrigins("http://localhost:8081") // Specify the allowed origin
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials(); // Allow credentials
                 });
         });
 

@@ -3,6 +3,7 @@ using Core.Application.Interface.Token;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Controllers.Base;
+using WebApi.Filters;
 
 namespace WebAPI.Controllers.User
 {
@@ -14,7 +15,7 @@ namespace WebAPI.Controllers.User
         {
         }
 
-        [Authorize]
+        [AuthorizeRoles]
         [HttpPost]
         [Route("get")]
         public async Task<IActionResult> GetUserRolesAsync()

@@ -5,6 +5,7 @@ using Core.Application.Model.Request;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WebApi.Controllers.Base;
+using WebApi.Filters;
 
 namespace WebApi.Controllers.User
 {
@@ -22,7 +23,7 @@ namespace WebApi.Controllers.User
             _userManager = userManager;
         }
 
-        [Authorize]
+        [AuthorizeRoles]
         [HttpPost]
         [Route("check")]
         public async Task<IActionResult> IsUserInRoleAsync(UserRoleCheck req)
