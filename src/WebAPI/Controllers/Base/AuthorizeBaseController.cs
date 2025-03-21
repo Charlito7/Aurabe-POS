@@ -1,6 +1,6 @@
 ﻿using Core.Application.Interface.Token;
 using Infrastructure.Constants;
-using Infrastructure.DotEnv;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -33,9 +33,9 @@ namespace WebApi.Controllers.Base
             {
                 bool isTokenValidated = _tokenServices
                     .ValidateTokenWithExpiryTime(
-                        VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_SECRET),
-                        VariableBuilder.GetVariable(EnvFileConstants.ISSUER),
-                        VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE),
+                        Environment.GetEnvironmentVariable(EnvFileConstants.ACCESS_TOKEN_SECRET),
+                        Environment.GetEnvironmentVariable(EnvFileConstants.ISSUER),
+                        Environment.GetEnvironmentVariable(EnvFileConstants.AUDIENCE),
                         accessToken);
 
                 if (!isTokenValidated)

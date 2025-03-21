@@ -1,12 +1,13 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Infrastructure;
-using Infrastructure.DotEnv;
 using Infrastructure.Constants;
+using DotNetEnv;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
+Env.Load();
 // Add services to the container.
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddControllers();
@@ -33,9 +34,9 @@ app.UseHsts();
 
 app.Use((context, next) =>
 {
-    var host = VariableBuilder.GetVariable(EnvFileConstants.HOST);
+    var host = Environment.GetEnvironmentVariable(EnvFileConstants.HOST);
     context.Request.Host = new HostString(host);
-    context.Request.Scheme = VariableBuilder.GetVariable(EnvFileConstants.SCHEME);
+    context.Request.Scheme = Environment.GetEnvironmentVariable(EnvFileConstants.SCHEME);
     return next();
 });
 

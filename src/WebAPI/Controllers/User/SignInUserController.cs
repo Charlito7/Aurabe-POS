@@ -65,7 +65,9 @@ public class SignInUserController : BaseController
 
         UserSignInResponse res = new UserSignInResponse()
         {
-            FullName = response.FullName,
+            FirstName = response.FirstName,
+            LastName = response.LastName,
+            Initial = response.Initial,
             UserRoles = response.UserRoles
         };
         

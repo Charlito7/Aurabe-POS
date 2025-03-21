@@ -14,14 +14,17 @@ public class SalesController : BaseController
 {
         private readonly ICreateSalesService _service;
     private readonly IGetSalesService _getSalesService;
+    private readonly IGetSellerDailySalesResumeService _getSalesDailyResumeService;
 
     public SalesController(
         ICreateSalesService service, 
         IGetSalesService getSalesService,
-        ITokenServices tokenServices)
+        ITokenServices tokenServices,
+        IGetSellerDailySalesResumeService getSalesDailyResumeService)
     {
         _service = service;
         _getSalesService = getSalesService;
+        _getSalesDailyResumeService = getSalesDailyResumeService;
     }
 
     [AuthorizeRoles]
@@ -74,6 +77,23 @@ public class SalesController : BaseController
             return BadRequest();
         }
       
+
+    }
+    [AuthorizeRoles]
+    [HttpPost]
+    [Route("GetDailyResume", Name = "GetDailyResume")]
+    public async Task<ActionResult<HttpStatusCode>> GetDailyResumeAsync()
+    {
+        try
+        {
+            var saleResume = await _getSalesDailyResumeService.GetSellerDailySalesResumeServiceAsync(User);
+            return Ok(saleResume);
+        }
+        catch
+        {
+            return BadRequest();
+        }
+
 
     }
 }

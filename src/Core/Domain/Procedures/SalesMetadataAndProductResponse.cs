@@ -17,6 +17,11 @@ public class SalesMetadataAndProductResponse
     public string? PaymentTypeTransactionId { get; set; }
     public string? SellerFullName { get; set; }
     public string? ProductSalesDetails { get; set; }
+    public decimal Discount { get; set; }
+    public decimal? ShippingCost { get; set; }
+    public string? ShippingAddress { get; set; }
+    public decimal OrderTaxPercentage { get; set; }
+
 }
 
 public class SalesMetadataAndProductResponseDTO
@@ -29,6 +34,10 @@ public class SalesMetadataAndProductResponseDTO
     public string? PaymentCustomerName { get; set; }
     public string? PaymentTypeTransactionId { get; set; }
     public string? SellerFullName { get; set; }
+    public decimal Discount { get; set; }
+    public decimal? ShippingCost { get; set; }
+    public string? ShippingAddress { get; set; }
+    public decimal OrderTaxPercentage { get; set; }
     public ProductSaleDetail[]? ProductSales { get; set; }
 }
 public class ProductSaleDetail

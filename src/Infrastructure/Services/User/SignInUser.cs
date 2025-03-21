@@ -5,7 +5,6 @@ using Core.Application.Interfaces.Services.User;
 using Core.Application.Model.Request;
 using Core.Application.Model.Response;
 using Infrastructure.Constants;
-using Infrastructure.DotEnv;
 using Infrastructure.Security;
 using System.Net;
 
@@ -50,13 +49,17 @@ namespace Infrastructure.Services.User
             var response = new UserSignInResponse
             {
                 Token = _tokenServices
-                .BuildToken(VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_SECRET),
-                VariableBuilder.GetVariable(EnvFileConstants.ISSUER),
-                VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE), user, userRoles),
+                .BuildToken(Environment.GetEnvironmentVariable(EnvFileConstants.ACCESS_TOKEN_SECRET),
+                Environment.GetEnvironmentVariable(EnvFileConstants.ISSUER),
+                Environment.GetEnvironmentVariable(EnvFileConstants.AUDIENCE), user, userRoles),
 
                 RefreshToken = _tokenServices.GenerateRefreshToken(),
                 UserRoles = userRoles,
-                FullName = user.FirstName + " " + user.LastName
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Initial = (!string.IsNullOrWhiteSpace(user.FirstName) && !string.IsNullOrWhiteSpace(user.LastName))
+        ? $"{char.ToUpper(user.FirstName[0])}{char.ToUpper(user.LastName[0])}"
+        : string.Empty
             };
             
             user.RefreshToken = response.RefreshToken;

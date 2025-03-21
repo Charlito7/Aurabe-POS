@@ -23,6 +23,8 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
     public DbSet<GetProductSuggestionsResponse> ProductSuggestionsResponses { get; set; }
     public DbSet<SalesMetadataAndProductResponse> SalesMetadataAndProductResponses { get; set; }
     public DbSet<GetAllSalesMetadata> GetAllSalesMetadata { get; set; }
+    public DbSet<GetSellerSalesTotalPriceAndQuantityToday> GetSellerSalesTotalPriceAndQuantityTodays { get; set; }
+    public DbSet<SellerDailyResumeEntity> SellerDailyResumes { get; set; }
 
 
 
@@ -68,6 +70,8 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
         builder.Entity<GetProductSuggestionsResponse>().HasNoKey();
         builder.Entity<SalesMetadataAndProductResponse>().HasNoKey(); 
         builder.Entity<GetAllSalesMetadata>().HasNoKey();
+        builder.Entity<SellerDailyResumeEntity>().HasNoKey();
+        builder.Entity<GetSellerSalesTotalPriceAndQuantityToday>().HasNoKey();
 
     }
 }

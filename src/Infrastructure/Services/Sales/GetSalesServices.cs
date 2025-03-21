@@ -1,28 +1,14 @@
 ﻿using Application.Interfaces.Repositories.User;
 using AutoMapper;
-using Azure;
 using Core.Application.Commons.ServiceResult;
-using Core.Application.Interface;
-using Core.Application.Interface.Repository;
 using Core.Application.Interface.Repository.Sales;
 using Core.Application.Interface.Services.Sales;
-using Core.Application.Model.Request.Product;
 using Core.Application.Model.Response.Product;
 using Core.Application.Model.Response.Sales;
-using Core.Domain.Entity;
 using Core.Domain.Enums;
 using Core.Domain.Procedures;
-using Infrastructure.Repository;
-using Newtonsoft.Json.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using MySqlConnector;
-
 namespace Infrastructure.Services.Sales;
 
 public class GetSalesServices : IGetSalesService

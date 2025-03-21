@@ -1,4 +1,5 @@
 ﻿using Core.Application.Interface.Repository.Sales;
+using Core.Domain.Entity;
 using Core.Domain.Procedures;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -44,6 +45,26 @@ public class SalesRepository : ISalesRepository
     {
         return await _context.SalesMetadataAndProductResponses
 .FromSqlRaw("CALL GetAllSalesMetadataAndProduct({0}, {1})", salesMetadataId, userId)
+.ToListAsync();
+    }
+
+    public async Task<SellerDailyResumeEntity> GetSellerDailyResumeAsync(Guid? userId)
+    {
+        try
+        {
+            return await _context.SellerDailyResumes.FirstAsync(c => c.SellerId == userId);
+        }
+        catch(Exception ex)
+        {
+            throw;
+        }
+       // return await _context.SellerDailyResumes.FirstAsync(c => c.SellerId == userId);
+    }
+   
+    public async Task<IEnumerable<GetSellerSalesTotalPriceAndQuantityToday>> GetSellerSalesTotalPriceAndQuantityTodayAsync(string userId)
+    {
+        return await _context.GetSellerSalesTotalPriceAndQuantityTodays
+.FromSqlRaw("CALL GetTodaySellerDashboard({0})", userId)
 .ToListAsync();
     }
 }

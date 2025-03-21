@@ -48,6 +48,8 @@ namespace Infrastructure
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISalesRepository, SalesRepository>();
             services.AddScoped<IGetSalesService, GetSalesServices>();
+            services.AddScoped<IGetSellerDailySalesResumeService, GetSellerDailySalesResumeService>();
+            
 
 
             //Security

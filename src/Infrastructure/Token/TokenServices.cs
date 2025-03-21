@@ -1,7 +1,6 @@
 ﻿using Core.Application.Interface.Token;
 using Core.Domain.Entities;
 using Infrastructure.Constants;
-using Infrastructure.DotEnv;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -37,7 +36,7 @@ public class TokenServices : ITokenServices
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
         double tokenLifetime = InfrastructureConstants.TOKEN_EXPIRY_DURATION_DAYS;
-        double.TryParse(VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_LIFETIME_IN_DAYS), out tokenLifetime);
+        double.TryParse(Environment.GetEnvironmentVariable(EnvFileConstants.ACCESS_TOKEN_LIFETIME_IN_DAYS), out tokenLifetime);
         var tokenDescriptor = new JwtSecurityToken(issuer, audience, claims,
             expires: DateTime.Now.AddDays(tokenLifetime),
             signingCredentials: credentials);
@@ -57,7 +56,7 @@ public class TokenServices : ITokenServices
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
         var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256Signature);
         double tokenLifetime = InfrastructureConstants.TOKEN_EXPIRY_DURATION_DAYS;
-        double.TryParse(VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_LIFETIME_IN_DAYS), out tokenLifetime);
+        double.TryParse(Environment.GetEnvironmentVariable(EnvFileConstants.ACCESS_TOKEN_LIFETIME_IN_DAYS), out tokenLifetime);
         var tokenDescriptor = new JwtSecurityToken(issuer, audience, claims,
             expires: DateTime.Now.AddDays(tokenLifetime),
             signingCredentials: credentials);
@@ -183,11 +182,11 @@ public class TokenServices : ITokenServices
             var validationParameters = new TokenValidationParameters
             {
                 ValidateIssuerSigningKey = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_SECRET))),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable(EnvFileConstants.ACCESS_TOKEN_SECRET))),
                 ValidateIssuer = true,
-                ValidIssuer = VariableBuilder.GetVariable(EnvFileConstants.ISSUER),
+                ValidIssuer = Environment.GetEnvironmentVariable(EnvFileConstants.ISSUER),
                 ValidateAudience = true,
-                ValidAudience = VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE),
+                ValidAudience = Environment.GetEnvironmentVariable(EnvFileConstants.AUDIENCE),
                 ValidateLifetime = true, // Ensure the token is not expired
                 ClockSkew = TimeSpan.Zero // No tolerance for expiration time
             };

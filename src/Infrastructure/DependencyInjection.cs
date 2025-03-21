@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Core.Domain.Entities;
 using Infrastructure.Constants;
-using Infrastructure.DotEnv;
 using Infrastructure.Mapper.Profiles;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +16,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = "Server=127.0.0.1;Database=stockdb;Port=3306;Uid=charlito;Pwd=@Pbax643#;Connection Timeout=3600";
+        string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
         //string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=aurabe;Trusted_Connection=True;";
 
         services.AddDbContext<AppDbContext>(options =>
@@ -43,7 +42,7 @@ public static class DependencyInjection
             options.AddPolicy("GeneralPolicy",
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:8081") // Specify the allowed origin
+                    policy.WithOrigins("http://localhost:8081", "http://localhost:8080") // Specify the allowed origin
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials(); // Allow credentials
@@ -119,9 +118,9 @@ public static class DependencyInjection
                 ValidateAudience = true,
                 ValidateLifetime = true,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = VariableBuilder.GetVariable(EnvFileConstants.ISSUER),
-                ValidAudience = VariableBuilder.GetVariable(EnvFileConstants.AUDIENCE),
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(VariableBuilder.GetVariable(EnvFileConstants.ACCESS_TOKEN_SECRET)!)),
+                ValidIssuer = Environment.GetEnvironmentVariable(EnvFileConstants.ISSUER),
+                ValidAudience = Environment.GetEnvironmentVariable(EnvFileConstants.AUDIENCE),
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable(EnvFileConstants.ACCESS_TOKEN_SECRET)!)),
                 ClockSkew = TimeSpan.Zero
 
             };
