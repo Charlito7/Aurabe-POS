@@ -6,6 +6,7 @@ using Core.Application.Model.Request;
 using Core.Application.Model.Response;
 using Infrastructure.Constants;
 using Infrastructure.Security;
+using System.Diagnostics;
 using System.Net;
 
 namespace Infrastructure.Services.User
@@ -24,28 +25,27 @@ namespace Infrastructure.Services.User
             _tokenServices = tokenServices;
         }
 
-        public async Task<ServiceResult<UserSignInResponse>> 
-            
-            SingInAsync(UserLoginModel model)
+        public async Task<ServiceResult<UserSignInResponse>> SingInAsync(UserLoginModel model)
         {
+
             var user = await _userManager.FindByEmailAsync(model.UserName!);
-            if (user == null )
+
+            if (user == null)
             {
                 return new ServiceResult<UserSignInResponse>(HttpStatusCode.BadRequest);
             }
 
-
-            var result = MyPasswordHasher.VerifyHashedPassword(user,user.Password, model.Password);
-            /*SignInResult result = await _signInManager
-                .PasswordSignInAsync(model.UserName!, model.Password!,
-                isPersistent: false, lockoutOnFailure: false);*/
+            
+            var result = MyPasswordHasher.VerifyHashedPassword(user, user.Password, model.Password);
 
             if (!result)
             {
                 return new ServiceResult<UserSignInResponse>(HttpStatusCode.Unauthorized);
             }
 
+            
             IList<string> userRoles = await _userManager.GetRolesAsync(user);
+  
             var response = new UserSignInResponse
             {
                 Token = _tokenServices
@@ -61,10 +61,14 @@ namespace Infrastructure.Services.User
         ? $"{char.ToUpper(user.FirstName[0])}{char.ToUpper(user.LastName[0])}"
         : string.Empty
             };
-            
+         
+
             user.RefreshToken = response.RefreshToken;
             user.RefreshTokenExpiryTime = DateTime.Now.AddDays(7);
+
+            
             await _userManager.UpdateAsync(user);
+      
 
             return new ServiceResult<UserSignInResponse>(response);
         }

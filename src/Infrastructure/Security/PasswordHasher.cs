@@ -12,7 +12,7 @@ namespace Infrastructure.Security;
 
 public static class MyPasswordHasher 
 {
-    private static readonly int _workFactor = 12; // Adjust as needed for security and performance balance
+    private static readonly int _workFactor = 12; 
 
     public static string HashPassword(UserEntity user, string password)
     {
