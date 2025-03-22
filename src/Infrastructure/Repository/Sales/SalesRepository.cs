@@ -69,7 +69,7 @@ public class SalesRepository : ISalesRepository
             };
             return sellerDailyResumeEntity;
         }
-       // return await _context.SellerDailyResumes.FirstAsync(c => c.SellerId == userId);
+    
     }
    
     public async Task<IEnumerable<GetSellerSalesTotalPriceAndQuantityToday>> GetSellerSalesTotalPriceAndQuantityTodayAsync(string userId)

@@ -32,10 +32,6 @@ public class GetSellerDailySalesResumeService : IGetSellerDailySalesResumeServic
     }
     public async Task<ServiceResult<GetSellerDailySalesResumeResponse>> GetSellerDailySalesResumeServiceAsync(ClaimsPrincipal claim)
     {
-        var roles = claim.Claims
- .Where(c => c.Type == System.Security.Claims.ClaimTypes.Role)
- .Select(c => c.Value)
- .ToList();
         var email = claim.Claims
          .Where(c => c.Type == System.Security.Claims.ClaimTypes.Email)
          .Select(c => c.Value)

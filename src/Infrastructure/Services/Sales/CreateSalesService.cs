@@ -139,7 +139,8 @@ public class CreateSalesService : ICreateSalesService
                     PaymentType = request.SalesMetadata.PaymentType.ToString(),
                     PaymentTypeTransactionID = request.SalesMetadata.PaymentTypeTransactionID,
                     PaymentCustomerName = request.SalesMetadata.PaymentCustomerName,
-                    CreatedBy = user.Id
+                    CreatedBy = user.Id,
+                    LastModifiedBy = user.Id,
                 };
 
               await _applicationDbContext.SalesMetadata.AddAsync(salesMetadataEntity);
@@ -157,7 +158,9 @@ public class CreateSalesService : ICreateSalesService
                         UnitCost = item.UnitCost,
                         Quantity = item.Quantity,
                         Discount = item.Discount,
-                        SalesMetadataId = salesMetadataEntity.Id
+                        SalesMetadataId = salesMetadataEntity.Id,
+                        CreatedBy = user.Id,
+                        LastModifiedBy = user.Id,
                     };
 
                 // Add the product to the list
