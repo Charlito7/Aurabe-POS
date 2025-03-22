@@ -41,10 +41,16 @@ public class SalesRepository : ISalesRepository
 .ToListAsync();
     }
     
-    public async Task<IEnumerable<SalesMetadataAndProductResponse>> GetSaleDetailsAsync(Guid salesMetadataId, string userId)
+    public async Task<IEnumerable<SalesMetadataAndProductResponse>> GetSaleDetailsBySellerAsync(Guid salesMetadataId, string userId)
     {
         return await _context.SalesMetadataAndProductResponses
-.FromSqlRaw("CALL GetAllSalesMetadataAndProduct({0}, {1})", salesMetadataId, userId)
+.FromSqlRaw("CALL GetSalesMetadataAndProductBySeller({0}, {1})", salesMetadataId, userId)
+.ToListAsync();
+    }
+    public async Task<IEnumerable<SalesMetadataAndProductResponse>> GetAllSaleDetailsAsync(Guid salesMetadataId)
+    {
+        return await _context.SalesMetadataAndProductResponses
+.FromSqlRaw("CALL GetAllSalesMetadataAndProduct({0})", salesMetadataId)
 .ToListAsync();
     }
 
@@ -52,11 +58,16 @@ public class SalesRepository : ISalesRepository
     {
         try
         {
-            return await _context.SellerDailyResumes.FirstAsync(c => c.SellerId == userId);
+            return await _context.SellerDailyResumes
+    .FirstAsync(c => c.SellerId == userId && c.Date == DateOnly.FromDateTime(DateTime.UtcNow));
         }
-        catch(Exception ex)
+        catch
         {
-            throw;
+            SellerDailyResumeEntity sellerDailyResumeEntity = new SellerDailyResumeEntity()
+            {
+                AmountIN = 0
+            };
+            return sellerDailyResumeEntity;
         }
        // return await _context.SellerDailyResumes.FirstAsync(c => c.SellerId == userId);
     }

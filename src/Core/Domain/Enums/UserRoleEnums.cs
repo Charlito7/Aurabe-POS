@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 namespace Core.Domain.Enums;
 
 public enum UserRoleEnums
-{
-    Admin,
-    User,
-    ITAdmin,
+{   User,
+    Seller,
     Manager,
-    Planner,
-    Seller
-
+    Admin,
+    SuperAdmin,
+    Associate
 }
 /* 
  ITAdmin: all read/write privileges

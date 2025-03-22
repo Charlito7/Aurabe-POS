@@ -7,6 +7,7 @@ using Core.Application.Model.Response.Product;
 using Core.Application.Model.Response.Sales;
 using Core.Domain.Enums;
 using Core.Domain.Procedures;
+using Sprache;
 using System.Net;
 using System.Security.Claims;
 namespace Infrastructure.Services.Sales;
@@ -47,13 +48,18 @@ public class GetSalesServices : IGetSalesService
 
         IEnumerable<GetAllSalesMetadata> result = new List<GetAllSalesMetadata>();
         ;
-        if (roles.Contains(UserRoleEnums.ITAdmin.ToString()))
+        if (roles.Contains(UserRoleEnums.Admin.ToString()))
         {
             result = await _salesRepository.GetAllSalesMetadataPaginationAsync(pageNumber, pageSize);
         }
-         result = await _salesRepository.GetAllSalesMetadataPaginationBySellerAsync(pageNumber, pageSize, user.Id);
+        else
+        {
+            result = await _salesRepository.GetAllSalesMetadataPaginationBySellerAsync(pageNumber, pageSize, user.Id);
 
-     
+        }
+
+
+
         var sales = await _salesRepository.GetAllSalesMetadataAsync();
         sales = sales.OrderByDescending(c => c.TransactionDate);
         var salesTotal = sales.Count();
@@ -82,6 +88,10 @@ public class GetSalesServices : IGetSalesService
   .Where(c => c.Type == System.Security.Claims.ClaimTypes.Email)
   .Select(c => c.Value)
   .FirstOrDefault();
+        var roles = claim.Claims
+.Where(c => c.Type == System.Security.Claims.ClaimTypes.Role)
+.Select(c => c.Value)
+.ToList();
 
         var user = await _userManager.FindByEmailAsync(email!);
         if (user == null)
@@ -90,9 +100,21 @@ public class GetSalesServices : IGetSalesService
         }
         try
         {
-            IEnumerable<SalesMetadataAndProductResponse> saleDetails = await _salesRepository.GetSaleDetailsAsync(saleMetadataId, user.Id);
-            var salesMetadataResponseDTO = _mapper.Map<SalesMetadataAndProductResponseDTO[]>(saleDetails);
-            return new ServiceResult<IEnumerable<SalesMetadataAndProductResponseDTO>>(salesMetadataResponseDTO, true, HttpStatusCode.OK, "");
+            IEnumerable<SalesMetadataAndProductResponse> saleDetails;
+            if (roles.Contains(UserRoleEnums.Admin.ToString()))
+            {
+                saleDetails = await _salesRepository.GetAllSaleDetailsAsync(saleMetadataId);
+                var salesMetadataResponseDTO = _mapper.Map<SalesMetadataAndProductResponseDTO[]>(saleDetails);
+                return new ServiceResult<IEnumerable<SalesMetadataAndProductResponseDTO>>(salesMetadataResponseDTO, true, HttpStatusCode.OK, "");
+            }
+            else
+            {
+                saleDetails = await _salesRepository.GetSaleDetailsBySellerAsync(saleMetadataId, user.Id);
+                var salesMetadataResponseDTO = _mapper.Map<SalesMetadataAndProductResponseDTO[]>(saleDetails);
+                return new ServiceResult<IEnumerable<SalesMetadataAndProductResponseDTO>>(salesMetadataResponseDTO, true, HttpStatusCode.OK, "");
+
+            }
+           
         }
         catch 
         {

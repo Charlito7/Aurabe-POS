@@ -46,13 +46,13 @@ public class GetSellerDailySalesResumeService : IGetSellerDailySalesResumeServic
         {
             return new ServiceResult<GetSellerDailySalesResumeResponse>(HttpStatusCode.BadRequest);
         }
-        
+        GetSellerDailySalesResumeResponse response = new GetSellerDailySalesResumeResponse();
         var dailyResponse = await _salesRepository.GetSellerDailyResumeAsync(Guid.Parse(user.Id));
         if (dailyResponse == null) {
-            return new ServiceResult<GetSellerDailySalesResumeResponse>(HttpStatusCode.BadRequest);
+            response.AmountIN = 0;
         }
         var totalDaily = await _salesRepository.GetSellerSalesTotalPriceAndQuantityTodayAsync(user.Id);
-        GetSellerDailySalesResumeResponse response = new GetSellerDailySalesResumeResponse();
+      
         response.AmountIN = dailyResponse.AmountIN;
 
         if (totalDaily.Count() == 0) {

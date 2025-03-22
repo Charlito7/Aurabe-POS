@@ -77,6 +77,7 @@ public class ProductController : AuthorizeBaseController
         return Ok(product);
     }
     [HttpPost]
+    [AuthorizeRoles("Admin")]
     public async Task<ActionResult<HttpStatusCode>> CreateProduct(List<ProductRequest> products)
     {
         if (!ModelState.IsValid)
@@ -156,7 +157,7 @@ public class ProductController : AuthorizeBaseController
     }
 
     [HttpPost("suggestions/get")]
-    [AuthorizeRoles("Seller")]
+    [AuthorizeRoles("Seller", "Admin" ,"Manager")]
     public async Task<IActionResult> GetInventorySuggestionsAsync([FromQuery] string userInput)
     {
         try
