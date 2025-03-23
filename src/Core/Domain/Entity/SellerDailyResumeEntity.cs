@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Domain.Entity
 {
-    [Table("SellersDailyResume")]
+    [Table("sellers_daily_resume")]
     public class SellerDailyResumeEntity
     {
         public Guid? SellerId { get; set; }

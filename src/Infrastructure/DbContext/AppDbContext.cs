@@ -56,17 +56,17 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.Entity<UserEntity>(entity => { entity.ToTable("Users"); });
-        builder.Entity<UserRoleEntity>(entity => { entity.ToTable("Roles"); });
-        builder.Entity<IdentityUserClaim<string>>(entity => { entity.ToTable("UserClaims"); });
-        builder.Entity<IdentityUserLogin<string>>(entity => { entity.ToTable("UserLogins"); });
-        builder.Entity<IdentityRoleClaim<string>>(entity => { entity.ToTable("RoleClaims"); });
-        builder.Entity<IdentityUserToken<string>>(entity => { entity.ToTable("UserTokens"); });
-        builder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("UserRoles"); });
-        builder.Entity<ProductEntity>(entity => { entity.ToTable("Products"); });
-        builder.Entity<CategoryEntity>(entity => { entity.ToTable("Categories"); });
-        builder.Entity<SalesMetadataEntity>(entity => { entity.ToTable("SalesMetadata"); });
-        builder.Entity<ProductSalesEntity>(entity => { entity.ToTable("ProductSales"); });
+        builder.Entity<UserEntity>(entity => { entity.ToTable("users"); });
+        builder.Entity<UserRoleEntity>(entity => { entity.ToTable("roles"); });
+        builder.Entity<IdentityUserClaim<string>>(entity => { entity.ToTable("user_claims"); });
+        builder.Entity<IdentityUserLogin<string>>(entity => { entity.ToTable("user_logins"); });
+        builder.Entity<IdentityRoleClaim<string>>(entity => { entity.ToTable("role_claims"); });
+        builder.Entity<IdentityUserToken<string>>(entity => { entity.ToTable("user_tokens"); });
+        builder.Entity<IdentityUserRole<string>>(entity => { entity.ToTable("user_roles"); });
+        builder.Entity<ProductEntity>(entity => { entity.ToTable("products"); });
+        builder.Entity<CategoryEntity>(entity => { entity.ToTable("categories"); });
+        builder.Entity<SalesMetadataEntity>(entity => { entity.ToTable("sales_metadata"); });
+        builder.Entity<ProductSalesEntity>(entity => { entity.ToTable("product_sales"); });
         builder.Entity<GetProductSuggestionsResponse>().HasNoKey();
         builder.Entity<SalesMetadataAndProductResponse>().HasNoKey(); 
         builder.Entity<GetAllSalesMetadata>().HasNoKey();
