@@ -73,7 +73,4 @@ app.Use(async (context, next) =>
 
 app.MapControllers();
 
-
-app.Seeder();
-app.MigrateDatabase();
 app.Run();
