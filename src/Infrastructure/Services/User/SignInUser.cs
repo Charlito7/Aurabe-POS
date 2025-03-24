@@ -29,7 +29,7 @@ namespace Infrastructure.Services.User
         {
 
             var user = await _userManager.FindByEmailAsync(model.UserName!);
-
+            Console.WriteLine("USER VALUE IS ", user);
             if (user == null)
             {
                 return new ServiceResult<UserSignInResponse>(HttpStatusCode.BadRequest);
