@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -25,9 +26,11 @@ public static class DependencyInjection
          var serverVersion = ServerVersion.AutoDetect(connectionString);
         services.AddDbContext<AppDbContext>(options =>
         {
-            options.UseMySql(
-                connectionString, serverVersion,
-                b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName));
+            options
+                .UseMySql(connectionString, serverVersion, b =>
+                    b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName))
+                .LogTo(Console.WriteLine, LogLevel.Information)
+                .EnableSensitiveDataLogging();
         });
         /* services.AddDbContext<AppDbContext>(options =>
          {
