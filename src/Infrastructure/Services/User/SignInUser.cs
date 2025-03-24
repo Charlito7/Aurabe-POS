@@ -4,6 +4,7 @@ using Core.Application.Interface.Token;
 using Core.Application.Interfaces.Services.User;
 using Core.Application.Model.Request;
 using Core.Application.Model.Response;
+using Core.Domain.Entities;
 using Infrastructure.Constants;
 using Infrastructure.Security;
 using System.Diagnostics;
@@ -27,9 +28,21 @@ namespace Infrastructure.Services.User
 
         public async Task<ServiceResult<UserSignInResponse>> SingInAsync(UserLoginModel model)
         {
-
-            var user = await _userManager.FindByEmailAsync(model.UserName!);
-            Console.WriteLine("USER VALUE IS ", user);
+            if (string.IsNullOrWhiteSpace(model.UserName))
+            {
+                return new ServiceResult<UserSignInResponse>(HttpStatusCode.BadRequest);
+            }
+            UserEntity? user = null;
+            try
+            {
+                user = await _userManager.FindByEmailAsync(model.UserName!);
+                Console.WriteLine("User fetched for login: {@User}", user);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error while fetching user with email: {model.UserName} | Exception: {ex.Message}"); 
+                return new ServiceResult<UserSignInResponse>(HttpStatusCode.InternalServerError);
+            }
             if (user == null)
             {
                 return new ServiceResult<UserSignInResponse>(HttpStatusCode.BadRequest);
