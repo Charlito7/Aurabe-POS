@@ -42,7 +42,7 @@ public static class DependencyInjection
             options.AddPolicy("GeneralPolicy",
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:8081", "http://localhost:8080") // Specify the allowed origin
+                    policy.WithOrigins(Environment.GetEnvironmentVariable("ALLOWED_ORIGINS")) // Specify the allowed origin
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials(); // Allow credentials
