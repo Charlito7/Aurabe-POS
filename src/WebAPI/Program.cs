@@ -35,8 +35,8 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "KODE API v1");
-        c.RoutePrefix = "swagger"; // ou laisse vide pour l'avoir à la racine
+        c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "KODE API v1");
+        c.RoutePrefix = "api/swagger";
     });
     app.UseForwardedHeaders();
 }
