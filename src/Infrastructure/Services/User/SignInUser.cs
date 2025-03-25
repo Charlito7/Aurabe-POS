@@ -36,6 +36,7 @@ namespace Infrastructure.Services.User
             try
             {
                 user = await _userManager.FindByEmailAsync(model.UserName!);
+
                 Console.WriteLine("User fetched for login: {@User}", user);
             }
             catch (Exception ex)

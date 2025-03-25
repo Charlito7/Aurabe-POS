@@ -22,8 +22,6 @@ public class SignInUserController : BaseController
     [HttpPost]
     [AllowAnonymous]
     [Route("login", Name = "UserLogin")]
-    //[ApiExplorerSettings(IgnoreApi = true)]
-    //[NonAction]
     public async Task<ActionResult<UserSignInResponse>> LoginUserAsync(UserLoginModel model)
     {
         if (!ModelState.IsValid)

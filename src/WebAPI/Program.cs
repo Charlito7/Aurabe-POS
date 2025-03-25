@@ -21,10 +21,14 @@ builder.Logging.AddConsole();
 var app = builder.Build();
 app.UseCors("GeneralPolicy");
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "KODE API v1");
+        c.RoutePrefix = "swagger"; // ou laisse vide pour l'avoir à la racine
+    });
     app.UseForwardedHeaders();
 }
 
