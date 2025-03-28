@@ -9,7 +9,7 @@ using WebApi.Controllers.Base;
 namespace WebApi.Controllers.User;
 
 [ApiController]
-[Route("/identity/user")]
+[Route("identity/user")]
 public class SignInUserController : BaseController
 {
     private readonly ISignInUser _service;
@@ -18,6 +18,7 @@ public class SignInUserController : BaseController
     {
         _service = service;
     }
+
 
     [HttpPost]
     [AllowAnonymous]
