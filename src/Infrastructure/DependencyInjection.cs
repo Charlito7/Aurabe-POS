@@ -24,7 +24,7 @@ public static class DependencyInjection
         services.AddDbContext<AppDbContext>(options =>
              options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 28))));
 
-        var serverVersion = new MySqlServerVersion(new Version(8, 0, 41));
+        var serverVersion = ServerVersion.AutoDetect(connectionString);
         services.AddDbContext<AppDbContext>(options =>
         {
             options
