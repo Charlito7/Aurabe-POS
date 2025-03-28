@@ -14,7 +14,7 @@ using WebApi.Filters;
 namespace WebAPI.Controllers;
 
 
-[Route("api/products")]
+[Route("products")]
 [ApiController]
 public class ProductController : AuthorizeBaseController
 {

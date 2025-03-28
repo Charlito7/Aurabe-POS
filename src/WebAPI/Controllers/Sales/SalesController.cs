@@ -8,7 +8,7 @@ using WebApi.Filters;
 
 namespace WebAPI.Controllers.Sales;
 
-[Route("api/sales")]
+[Route("sales")]
 [ApiController]
 public class SalesController : BaseController
 {
