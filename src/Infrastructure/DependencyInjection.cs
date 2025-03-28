@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
@@ -17,17 +18,20 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+        Console.WriteLine($"Connection string: {connectionString}");
         //string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=aurabe;Trusted_Connection=True;";
 
         services.AddDbContext<AppDbContext>(options =>
              options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 28))));
 
-         var serverVersion = ServerVersion.AutoDetect(connectionString);
+        var serverVersion = ServerVersion.AutoDetect(connectionString);
         services.AddDbContext<AppDbContext>(options =>
         {
-            options.UseMySql(
-                connectionString, serverVersion,
-                b => b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName));
+            options
+                .UseMySql(connectionString, serverVersion, b =>
+                    b.MigrationsAssembly(typeof(AppDbContext).Assembly.FullName))
+                .LogTo(Console.WriteLine, LogLevel.Information)
+                .EnableSensitiveDataLogging();
         });
         /* services.AddDbContext<AppDbContext>(options =>
          {
@@ -42,7 +46,7 @@ public static class DependencyInjection
             options.AddPolicy("GeneralPolicy",
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:8081", "http://localhost:8080") // Specify the allowed origin
+                    policy.WithOrigins(Environment.GetEnvironmentVariable("ALLOWED_ORIGINS")) // Specify the allowed origin
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials(); // Allow credentials
