@@ -33,17 +33,8 @@ namespace Infrastructure.Services.User
                 return new ServiceResult<UserSignInResponse>(HttpStatusCode.BadRequest);
             }
             UserEntity? user = null;
-            try
-            {
-                user = await _userManager.FindByEmailAsync(model.UserName!);
 
-                Console.WriteLine("User fetched for login: {@User}", user);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error while fetching user with email: {model.UserName} | Exception: {ex.Message}"); 
-                return new ServiceResult<UserSignInResponse>(HttpStatusCode.InternalServerError);
-            }
+           user = await _userManager.FindByEmailAsync(model.UserName!);
             if (user == null)
             {
                 return new ServiceResult<UserSignInResponse>(HttpStatusCode.BadRequest);

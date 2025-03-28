@@ -13,16 +13,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-    {
-        Title = "KODE API",
-        Version = "v1",
-        Description = "Documentation de l'API de KODE",
-    });
-});
-
+builder.Services.AddSwaggerGen();
 builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
         options.TokenLifespan = TimeSpan.FromHours(3));
 
@@ -30,14 +21,10 @@ builder.Logging.AddConsole();
 var app = builder.Build();
 app.UseCors("GeneralPolicy");
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
+if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/api/swagger/v1/swagger.json", "KODE API v1");
-        c.RoutePrefix = "api/swagger";
-    });
+    app.UseSwaggerUI();
     app.UseForwardedHeaders();
 }
 
