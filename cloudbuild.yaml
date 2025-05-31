@@ -4,7 +4,7 @@ steps:
     args: [
       'build',
       '-t', 'gcr.io/kode-461516/kode-pos-backend',
-      './backend'
+      '.'
     ]
 
   # Étape 2 : Push de l'image vers Container Registry (ou Artifact Registry)
