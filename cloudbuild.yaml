@@ -27,3 +27,8 @@ steps:
 
 images:
   - gcr.io/kode-461516/kode-pos-backend
+
+options:
+  # This ensures build logs are sent to Cloud Logging.
+  # It addresses the common error related to service accounts and log buckets.
+  logging: CLOUD_LOGGING_ONLY
