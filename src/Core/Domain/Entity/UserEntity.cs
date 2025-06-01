@@ -31,6 +31,7 @@ public class UserEntity : IdentityUser
     public DateTime? LastModified { get; set; }
     public string? LastModifiedBy { get; set; }
     public bool? IsDeleted { get; set; }
+    public bool? IsNewPasswordRequired { get; set; }
     public DateTime? DeletedOn { get; set; }
     public string? DeletedBy { get; set; }
 
@@ -45,4 +46,5 @@ public class UserEntity : IdentityUser
     public override bool EmailConfirmed { get; set; }
     public override bool LockoutEnabled { get; set; }
     public override int AccessFailedCount { get; set; }
+    
 }

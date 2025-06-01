@@ -59,6 +59,7 @@ namespace Infrastructure.Services.User
                 Environment.GetEnvironmentVariable(EnvFileConstants.AUDIENCE), user, userRoles),
 
                 RefreshToken = _tokenServices.GenerateRefreshToken(),
+                IsNewPasswordRequired = user.IsNewPasswordRequired,
                 UserRoles = userRoles,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
