@@ -6,7 +6,7 @@ using DotNetEnv;
 
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.WebHost.UseUrls("http://+:8080");
 Env.Load();
 // Add services to the container.
 builder.Services.AddInfrastructure(builder.Configuration);
