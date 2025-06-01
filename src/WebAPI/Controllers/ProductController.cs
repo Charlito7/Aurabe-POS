@@ -173,7 +173,7 @@ public class ProductController : AuthorizeBaseController
         catch (Exception ex)
         {
             {
-                return NotFound();
+                return NotFound(ex);
             }
         }
 
