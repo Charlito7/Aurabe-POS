@@ -173,7 +173,8 @@ public class ProductController : AuthorizeBaseController
         catch (Exception ex)
         {
             {
-                return NotFound(ex);
+               // return NotFound();
+               return StatusCode(500, new { Error = "An unexpected error occurred.", Details = ex.Message });
             }
         }
 
