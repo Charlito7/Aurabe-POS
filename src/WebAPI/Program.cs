@@ -18,6 +18,10 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
         options.TokenLifespan = TimeSpan.FromHours(3));
 
 builder.Logging.AddConsole();
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(8080);
+});
 var app = builder.Build();
 app.UseCors("GeneralPolicy");
 // Configure the HTTP request pipeline.
