@@ -66,6 +66,7 @@ public class SignInUserController : BaseController
         {
             FirstName = response.FirstName,
             LastName = response.LastName,
+            IsNewPasswordRequired = response.IsNewPasswordRequired,
             Initial = response.Initial,
             UserRoles = response.UserRoles
         };
