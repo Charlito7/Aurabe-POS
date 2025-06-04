@@ -13,6 +13,7 @@ public class UserSignInResponse
     public bool? IsNewPasswordRequired { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
+    public string? Email { get; set; }
     public string? Initial { get; set; }
     public IList<string>? UserRoles { get; set; }
 }

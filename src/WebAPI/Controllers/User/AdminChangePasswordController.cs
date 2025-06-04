@@ -10,19 +10,21 @@ namespace WebAPI.Controllers.User;
 
 [ApiController]
 [Route("identity/user/password")]
-public class UserChangePasswordController : BaseController
+public class AdminChangePasswordController : AuthorizeBaseController
 {
     private readonly IUpdateUserPassword _updateUserPassword;
-    public UserChangePasswordController(IUpdateUserPassword updateUserPassword)
+    public AdminChangePasswordController(IUpdateUserPassword updateUserPassword,ITokenServices token) : base(token)
     {
         _updateUserPassword = updateUserPassword;
     }
 
+
+    [AuthorizeRoles("Manager")]
     [HttpPost]
-    [Route("change")]
-    public async Task<IActionResult> ChangeUserPasswordAsync([FromBody] UpdateUserPasswordModel request)
+    [Route("manager/change")]
+    public async Task<IActionResult> ChangeUserPasswordByManagerAsync([FromBody] UpdateUserPasswordByManagerModel request)
     {
-       var result = await _updateUserPassword.UpdateUserPassowrdAsync(request);
+        var result = await _updateUserPassword.UpdateUserPassowrdByManagerAsync(User, request);
 
         if (result.IsOk)
         {
@@ -31,5 +33,6 @@ public class UserChangePasswordController : BaseController
         return BadRequest(false);
 
     }
+
 
 }

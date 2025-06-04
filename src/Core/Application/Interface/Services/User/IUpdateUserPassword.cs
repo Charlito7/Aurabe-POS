@@ -11,6 +11,6 @@ namespace Core.Application.Interfaces.Services.User;
 
 public interface IUpdateUserPassword
 {
-    Task<ServiceResult<bool>> UpdateUserPassowrdAsync(ClaimsPrincipal claim,UpdateUserPasswordModel model);
+    Task<ServiceResult<bool>> UpdateUserPassowrdAsync(UpdateUserPasswordModel model);
     Task<ServiceResult<bool>> UpdateUserPassowrdByManagerAsync(ClaimsPrincipal claim, UpdateUserPasswordByManagerModel model);
 }
