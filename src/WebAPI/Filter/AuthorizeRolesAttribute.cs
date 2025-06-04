@@ -38,6 +38,18 @@ namespace WebApi.Filters
                     return;
                 }
 
+                // Check if password change is required
+                var isNewPasswordRequiredClaim = principal.FindFirst("IsNewPasswordRequired")?.Value;
+                if (bool.TryParse(isNewPasswordRequiredClaim, out var isNewPasswordRequired) && isNewPasswordRequired)
+                {
+                    context.Result = new UnauthorizedObjectResult(new
+                    {
+                        Message = "Password change required",
+                        Code = "PASSWORD_CHANGE_REQUIRED"
+                    });
+                    return;
+                }
+
                 // Set the user principal
                 context.HttpContext.User = principal;
 

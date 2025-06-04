@@ -68,7 +68,8 @@ public class SignInUserController : BaseController
             LastName = response.LastName,
             IsNewPasswordRequired = response.IsNewPasswordRequired,
             Initial = response.Initial,
-            UserRoles = response.UserRoles
+            UserRoles = response.UserRoles,
+            Email = response.Email
         };
         
         return Ok(new ServiceResult<UserSignInResponse>(res));

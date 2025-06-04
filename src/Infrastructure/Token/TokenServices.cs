@@ -25,6 +25,7 @@ public class TokenServices : ITokenServices
 {
     new Claim(ClaimTypes.Name, user.UserName!),
     new Claim(ClaimTypes.Email, user.Email!),
+    new Claim("IsNewPasswordRequired", user.IsNewPasswordRequired.ToString()!),
     new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
 };
 

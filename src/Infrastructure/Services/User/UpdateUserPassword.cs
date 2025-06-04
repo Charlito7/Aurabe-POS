@@ -23,13 +23,10 @@ namespace Infrastructure.Services.User
             _userManager = userManager;
         }
 
-        public async Task<ServiceResult<bool>> UpdateUserPassowrdAsync(ClaimsPrincipal claim, UpdateUserPasswordModel model)
+        public async Task<ServiceResult<bool>> UpdateUserPassowrdAsync(UpdateUserPasswordModel model)
         {
-            var email = claim.Claims
-                                 .Where(c => c.Type == System.Security.Claims.ClaimTypes.Email)
-                                 .Select(c => c.Value)
-                                 .FirstOrDefault();
-            var user = await _userManager.FindByEmailAsync(email!);
+
+            var user = await _userManager.FindByEmailAsync(model.Email!);
             
             if(user == null)
             {
@@ -50,7 +47,7 @@ namespace Infrastructure.Services.User
             user.Password = model.NewPassword;
             user.IsNewPasswordRequired = false;
             user.LastModified = DateTime.UtcNow;
-            user.LastModifiedBy = email;
+            user.LastModifiedBy = model.Email;
             var resultPassword = await _userManager
                 .UpdatePasswordWithoutToken(user, model.NewPassword!);
             if (!resultPassword.Succeeded)

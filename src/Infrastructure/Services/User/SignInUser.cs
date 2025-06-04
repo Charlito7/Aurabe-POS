@@ -63,6 +63,7 @@ namespace Infrastructure.Services.User
                 UserRoles = userRoles,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
+                Email = user.Email,
                 Initial = (!string.IsNullOrWhiteSpace(user.FirstName) && !string.IsNullOrWhiteSpace(user.LastName))
         ? $"{char.ToUpper(user.FirstName[0])}{char.ToUpper(user.LastName[0])}"
         : string.Empty
