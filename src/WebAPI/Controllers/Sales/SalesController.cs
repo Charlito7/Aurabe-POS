@@ -27,7 +27,7 @@ public class SalesController : BaseController
         _getSalesDailyResumeService = getSalesDailyResumeService;
     }
 
-    [AuthorizeRoles]
+    [AuthorizeRoles("Seller", "Admin")]
     [HttpPost]
     [Route("CreateSales", Name = "CreateSales")]
     public async Task<ActionResult<HttpStatusCode>> CreateSales(CreateSalesRequest sales)
@@ -53,7 +53,7 @@ public class SalesController : BaseController
        
     }
 
-   [AuthorizeRoles]
+    [AuthorizeRoles("Seller", "Admin", "Manager")]
     [HttpPost]
     [Route("GetSalesListPagination", Name = "GetSalesListPagination")]
     public async Task<ActionResult<HttpStatusCode>> GetSalesListAsync(int page = 1, int pageSize = 10)
@@ -62,7 +62,7 @@ public class SalesController : BaseController
         return Ok(sales);
 
     }
-   [AuthorizeRoles]
+    [AuthorizeRoles("Seller", "Admin", "Manager")]
     [HttpPost]
     [Route("GetSaleDetails", Name = "GetSaleDetails")]
     public async Task<ActionResult<HttpStatusCode>> GetSaleDetailsAsync(Guid saleMetadataId)
@@ -79,7 +79,7 @@ public class SalesController : BaseController
       
 
     }
-    [AuthorizeRoles]
+    [AuthorizeRoles("Seller", "Admin", "Manager")]
     [HttpPost]
     [Route("GetDailyResume", Name = "GetDailyResume")]
     public async Task<ActionResult<HttpStatusCode>> GetDailyResumeAsync()

@@ -99,7 +99,7 @@ public class ProductController : AuthorizeBaseController
         return BadRequest(result);
     }
 
-    [HttpPost]
+    [[AuthorizeRoles("Admin")]
     [Route("updateProduct", Name = "UpdateProduct")]
     public async Task<IActionResult> UpdateProduct(ProductRequest product)
     {
@@ -124,6 +124,7 @@ public class ProductController : AuthorizeBaseController
         return BadRequest(result);
     }
 
+    [AuthorizeRoles("Admin")]
     [HttpPost]
     [Route("updateProductList", Name = "UpdateProducts")]
     public async Task<IActionResult> UpdateProducts(List<ProductRequest> products)
@@ -149,6 +150,7 @@ public class ProductController : AuthorizeBaseController
         return BadRequest(result);
     }
 
+    [AuthorizeRoles("Admin")]
     [HttpDelete("{productId}")]
     public async Task<IActionResult> DeleteProduct(Guid productId)
     {
@@ -157,7 +159,7 @@ public class ProductController : AuthorizeBaseController
     }
 
     [HttpPost("suggestions/get")]
-    [AuthorizeRoles("Seller", "Admin" ,"Manager")]
+    [AuthorizeRoles]
     public async Task<IActionResult> GetInventorySuggestionsAsync([FromQuery] string userInput)
     {
         try

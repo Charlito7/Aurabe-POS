@@ -17,8 +17,7 @@ public class ProductRequest
 
     public string Description { get; set; }
 
-    [RegularExpression("^[0-9]*$", ErrorMessage = "BarCode can only contain numbers")]
-
+    //[RegularExpression("^[0-9]*$", ErrorMessage = "BarCode can only contain numbers")]
     public string BarCode { get; set; }
 
     public string CategoryName { get; set; }

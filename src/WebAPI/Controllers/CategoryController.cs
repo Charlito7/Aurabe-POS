@@ -1,6 +1,7 @@
 ﻿using Core.Application.Interface;
 using Core.Application.Model.Request;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace WebAPI.Controllers;
 
@@ -24,7 +25,7 @@ public class CategoryController : ControllerBase
     }
 
     [HttpPost("Create", Name = "CreateCategory")]
-    public async Task<ActionResult<int>> CreateCategory(CreateCategoryRequest category)
+    public async Task<ActionResult<int>> CreateCategory(List<CreateCategoryRequest> categories)
     {
         if (!ModelState.IsValid)
         {
@@ -37,14 +38,12 @@ public class CategoryController : ControllerBase
             // Return BadRequest with error messages
             return BadRequest(new { Errors = errorMessages });
         }
-        var result = await _service.CreateCategoryAsync(category);
-
-        if (!result.IsOk)
-        {
-            return BadRequest(new { Errors = result.ErrorMessages });
+        foreach (var category in categories) {
+            var result = await _service.CreateCategoryAsync(category);
+            
+           
         }
-
-        return Ok(result.Status);
+        return Ok();
     }
 
 }

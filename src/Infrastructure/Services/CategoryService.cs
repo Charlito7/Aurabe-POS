@@ -21,7 +21,10 @@ public class CategoryService : ICategoryService
         CategoryEntity category = new CategoryEntity()
         {
             Name = request.Name,
-            Description = request.Description
+            Description = request.Description,
+            Created = DateTime.UtcNow,
+            CreatedBy = "Wilbenson",
+            IsDeleted = false,
         };
         var result = await _repository.CreateAsync(category);
 
