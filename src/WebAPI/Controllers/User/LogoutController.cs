@@ -13,7 +13,7 @@ namespace WebAPI.Controllers.User
                 Expires = DateTime.UtcNow.AddDays(-1),
                 HttpOnly = true,
                 Secure = true,
-                SameSite = SameSiteMode.Strict
+                SameSite = SameSiteMode.None
             });
 
             return Ok(new { message = "Logged out" });
