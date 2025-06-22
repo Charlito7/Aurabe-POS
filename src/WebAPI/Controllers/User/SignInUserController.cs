@@ -48,8 +48,8 @@ public class SignInUserController : BaseController
         Response.Cookies.Append("SessionId", response.Token, new CookieOptions
         {
             HttpOnly = true,
-            Secure = false,
-            SameSite = SameSiteMode.Strict,
+            Secure = true,
+            SameSite = SameSiteMode.None,
             Expires = DateTime.UtcNow.AddMinutes(60)
         });
 
@@ -57,8 +57,8 @@ public class SignInUserController : BaseController
         Response.Cookies.Append("RefreshToken", response.RefreshToken, new CookieOptions
         {
             HttpOnly = true,
-            Secure = false,
-            SameSite = SameSiteMode.Strict,
+            Secure = true,
+            SameSite = SameSiteMode.None,
             Expires = DateTime.UtcNow.AddDays(7)
         });
 
