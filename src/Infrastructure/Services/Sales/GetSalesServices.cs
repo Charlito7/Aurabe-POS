@@ -48,7 +48,7 @@ public class GetSalesServices : IGetSalesService
 
         IEnumerable<GetAllSalesMetadata> result = new List<GetAllSalesMetadata>();
         ;
-        if (roles.Contains(UserRoleEnums.Admin.ToString()))
+        if (roles.Contains(UserRoleEnums.Admin.ToString()) || roles.Contains(UserRoleEnums.Manager.ToString()))
         {
             result = await _salesRepository.GetAllSalesMetadataPaginationAsync(pageNumber, pageSize);
         }

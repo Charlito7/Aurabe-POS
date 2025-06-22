@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.Repositories.User;
 using AutoMapper;
+using Azure;
 using Core.Application.Commons.ServiceResult;
 using Core.Application.Interface.Repository.Sales;
 using Core.Application.Interface.Services.Sales;
@@ -30,6 +31,13 @@ public class GetSellerDailySalesResumeService : IGetSellerDailySalesResumeServic
         _salesRepository = salesRepository;
         _userManager = userManager;
     }
+
+    public async Task<ServiceResult<IEnumerable<GetSalesSummaryByDay>>> GetSalesResumeLastSevenDaysServiceAsync()
+    {
+        var dailyResponse = await _salesRepository.GetSalesSummaryByLastSevenDaysAsync();
+        return new ServiceResult<IEnumerable<GetSalesSummaryByDay>>(dailyResponse, true, HttpStatusCode.OK, "");
+    }
+
     public async Task<ServiceResult<GetSellerDailySalesResumeResponse>> GetSellerDailySalesResumeServiceAsync(ClaimsPrincipal claim)
     {
         var email = claim.Claims
