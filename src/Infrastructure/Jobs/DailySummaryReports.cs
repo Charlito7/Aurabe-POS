@@ -5,11 +5,7 @@ using Infrastructure.Utils.DateUtils;
 using Quartz;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Jobs;
 
