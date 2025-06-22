@@ -5,11 +5,7 @@ using Infrastructure.Utils.DateUtils;
 using Quartz;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Jobs;
 
@@ -40,13 +36,13 @@ public class DailySummaryReports : IJob
         }
         var attachments = new List<(byte[] content, string fileName, string mimeType)>
         {
-            (pdfBytes, $"{DateTime.Now:yyyyMMdd}-rapport-journalier-aurabe.pdf", "application/pdf")
+            (pdfBytes, $"{DateTime.Now.AddDays(-1):yyyyMMdd}-rapport-journalier-aurabe.pdf", "application/pdf")
         };
 
         await _emailService.SendEmailAsync(
-    to: new List<string> { "WilbensonCharles7@gmail.com","wcharles@innoetech.com", "francketiennejeudy380@gmail.com", "wadlinepierressaint1@gmail.com", "djerry.g87@gmail.com" },
+    to: new List<string> { "WilbensonCharles7@gmail.com", "francketiennejeudy380@gmail.com", "wadlinepierressaint1@gmail.com", "djerry.g87@gmail.com" },
     subject: "(Rapport journalier de vente - Aurabe",
-    body: "Bonsoir,\n\nVeuillez trouver ci-joint le rapport journalier des ventes du " + $"Date : {DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("fr-FR"))} " + " pour la succursale de Jacmel",
+    body: "Bonsoir,\n\nVeuillez trouver ci-joint le rapport journalier des ventes du " + $"Date : {DateTime.Now.AddDays(-1).ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("fr-FR"))} " + " pour la succursale de Jacmel",
     attachments: attachments
 );
     }
