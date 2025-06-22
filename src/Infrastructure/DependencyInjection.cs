@@ -17,9 +17,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
-        Console.WriteLine($"Connection string: {connectionString}");
-        //string connectionString = "Server=(localdb)\\MSSQLLocalDB;Database=aurabe;Trusted_Connection=True;";
+        string connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")!;
+    
 
         services.AddDbContext<AppDbContext>(options =>
              options.UseMySql(connectionString, new MySqlServerVersion(new Version(8, 0, 28))));

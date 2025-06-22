@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces.Repositories.User;
 using Core.Application.Commons.ServiceResult;
+using Core.Application.Interface.Services.Emails;
 using Core.Application.Interface.Token;
 using Core.Application.Interfaces.Services.User;
 using Core.Application.Model.Request;
@@ -75,7 +76,6 @@ namespace Infrastructure.Services.User
 
             
             await _userManager.UpdateAsync(user);
-      
 
             return new ServiceResult<UserSignInResponse>(response);
         }

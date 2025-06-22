@@ -25,6 +25,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
     public DbSet<GetAllSalesMetadata> GetAllSalesMetadata { get; set; }
     public DbSet<GetSellerSalesTotalPriceAndQuantityToday> GetSellerSalesTotalPriceAndQuantityTodays { get; set; }
     public DbSet<SellerDailyResumeEntity> SellerDailyResumes { get; set; }
+    public DbSet<GetSalesSummaryDto> GetSalesSummary { get; set; }  
 
 
 
@@ -72,6 +73,7 @@ public class AppDbContext : IdentityDbContext<UserEntity, UserRoleEntity, string
         builder.Entity<GetAllSalesMetadata>().HasNoKey();
         builder.Entity<SellerDailyResumeEntity>().HasNoKey();
         builder.Entity<GetSellerSalesTotalPriceAndQuantityToday>().HasNoKey();
+        builder.Entity<GetSalesSummaryDto>().HasNoKey();
 
     }
 }

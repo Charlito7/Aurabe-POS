@@ -2,11 +2,7 @@
 using Core.Domain.Entity;
 using Core.Domain.Procedures;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Infrastructure.Repository.Sales;
 
@@ -76,6 +72,13 @@ public class SalesRepository : ISalesRepository
     {
         return await _context.GetSellerSalesTotalPriceAndQuantityTodays
 .FromSqlRaw("CALL GetTodaySellerDashboard({0})", userId)
+.ToListAsync();
+    }
+
+    public async Task<IEnumerable<GetSalesSummaryDto>> GetSalesSummaryByDateRangeAsync(DateTime dateStart, DateTime dateEnd)
+    {
+        return await _context.GetSalesSummary
+.FromSqlRaw("CALL GetSalesSummaryByDateRange({0},{1})", dateStart, dateEnd)
 .ToListAsync();
     }
 }
