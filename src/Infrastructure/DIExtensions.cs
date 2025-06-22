@@ -2,6 +2,7 @@
 using Core.Application.Interface;
 using Core.Application.Interface.Repository;
 using Core.Application.Interface.Repository.Sales;
+using Core.Application.Interface.Services.Emails;
 using Core.Application.Interface.Services.Sales;
 using Core.Application.Interface.Token;
 using Infrastructure.Repositories.User;
@@ -10,6 +11,7 @@ using Infrastructure.Repository.Product;
 using Infrastructure.Repository.Sales;
 using Infrastructure.Security;
 using Infrastructure.Services;
+using Infrastructure.Services.Emails;
 using Infrastructure.Services.Products;
 using Infrastructure.Services.Sales;
 using Infrastructure.Token;
@@ -48,6 +50,7 @@ namespace Infrastructure
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<ISalesRepository, SalesRepository>();
             services.AddScoped<IGetSalesService, GetSalesServices>();
+            services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IGetSellerDailySalesResumeService, GetSellerDailySalesResumeService>();
             
 

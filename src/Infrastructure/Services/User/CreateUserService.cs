@@ -43,6 +43,7 @@ namespace Infrastructure.Services.User
             dataModel.Password = MyPasswordHasher.HashPassword(user, dataModel.Password);
             user.PasswordHash = dataModel.Password;
             user.Password = dataModel.Password;
+            user.IsNewPasswordRequired = true;
             var result = await _userManager
                 .CreateWithPasswordAsync(user, dataModel.Password!);
             if(!result.Succeeded)

@@ -99,8 +99,9 @@ public class ProductController : AuthorizeBaseController
         return BadRequest(result);
     }
 
-    [[AuthorizeRoles("Admin")]
+    [AuthorizeRoles("Admin")]
     [Route("updateProduct", Name = "UpdateProduct")]
+    [HttpPost]
     public async Task<IActionResult> UpdateProduct(ProductRequest product)
     {
         if (!ModelState.IsValid)

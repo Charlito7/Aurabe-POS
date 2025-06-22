@@ -1,14 +1,14 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
+using DotNetEnv;
 using Infrastructure;
 using Infrastructure.Constants;
-using DotNetEnv;
+using Infrastructure.Jobs;
+using Microsoft.AspNetCore.Identity;
+using Quartz;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 Env.Load();
-// Add services to the container.
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddControllers();
 
@@ -18,9 +18,26 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
         options.TokenLifespan = TimeSpan.FromHours(3));
 
 builder.Logging.AddConsole();
+builder.Services.AddQuartz(q =>
+{
+    q.UseMicrosoftDependencyInjectionJobFactory();
+
+    var jobKey = new JobKey("DailyMyServiceJob");
+
+    q.AddJob<DailySummaryReports>(opts => opts.WithIdentity(jobKey));
+
+    q.AddTrigger(opts => opts
+        .ForJob(jobKey)
+        .WithIdentity("DailyMyServiceTrigger")
+        .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(1,35))
+    );
+});
+
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 var app = builder.Build();
 app.UseCors("GeneralPolicy");
-// Configure the HTTP request pipeline.
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -36,7 +53,7 @@ app.Use((context, next) =>
 {
     var host = Environment.GetEnvironmentVariable(EnvFileConstants.HOST);
     context.Request.Host = new HostString(host);
-    context.Request.Scheme = Environment.GetEnvironmentVariable(EnvFileConstants.SCHEME);
+    context.Request.Scheme = Environment.GetEnvironmentVariable(EnvFileConstants.SCHEME)!;
     return next();
 });
 
