@@ -29,7 +29,7 @@ builder.Services.AddQuartz(q =>
     q.AddTrigger(opts => opts
         .ForJob(jobKey)
         .WithIdentity("DailyMyServiceTrigger")
-        .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(12,00))
+        .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(10,05))
     );
 });
 
