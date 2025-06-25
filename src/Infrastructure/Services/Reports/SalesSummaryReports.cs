@@ -1,30 +1,34 @@
 ﻿using Core.Application.Interface.Repository.Sales;
 using Core.Application.Interface.Services.Emails;
+using Core.Application.Interface.Services.Reports;
 using Infrastructure.Services.Sales.Reports;
 using Infrastructure.Utils.DateUtils;
-using Quartz;
 using QuestPDF.Fluent;
 using QuestPDF.Infrastructure;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
+namespace Infrastructure.Services.Reports;
 
-namespace Infrastructure.Jobs;
-
-public class DailySummaryReports : IJob
+public class SalesSummaryReports : ISalesSummaryReports
 {
     private readonly IEmailService _emailService;
     private readonly ISalesRepository _salesRepository;
 
-    public DailySummaryReports(IEmailService emailService, ISalesRepository salesRepository)
+    public SalesSummaryReports(IEmailService emailService, ISalesRepository salesRepository)
     {
-       _emailService = emailService;
-       _salesRepository = salesRepository;
+        _emailService = emailService;
+        _salesRepository = salesRepository;
     }
-    public async Task Execute(IJobExecutionContext context)
+    public async Task DailySalesSummaryReports()
     {
-        DateTime dateStart = DateConverter.TodayHaitiToUTC(0,0);
-        DateTime dateEnd   = DateConverter.TodayHaitiToUTC(23,59);
+        DateTime dateStart = DateConverter.TodayHaitiToUTC(0, 0);
+        DateTime dateEnd = DateConverter.TodayHaitiToUTC(23, 59);
         var result = await _salesRepository.GetSalesSummaryByDateRangeAsync(dateStart, dateEnd);
-       
+
 
         byte[] pdfBytes;
         using (var stream = new MemoryStream())

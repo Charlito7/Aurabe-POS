@@ -3,6 +3,7 @@ using Core.Application.Interface;
 using Core.Application.Interface.Repository;
 using Core.Application.Interface.Repository.Sales;
 using Core.Application.Interface.Services.Emails;
+using Core.Application.Interface.Services.Reports;
 using Core.Application.Interface.Services.Sales;
 using Core.Application.Interface.Token;
 using Infrastructure.Repositories.User;
@@ -13,6 +14,7 @@ using Infrastructure.Security;
 using Infrastructure.Services;
 using Infrastructure.Services.Emails;
 using Infrastructure.Services.Products;
+using Infrastructure.Services.Reports;
 using Infrastructure.Services.Sales;
 using Infrastructure.Token;
 using Microsoft.Extensions.DependencyInjection;
@@ -51,6 +53,7 @@ namespace Infrastructure
             services.AddScoped<ISalesRepository, SalesRepository>();
             services.AddScoped<IGetSalesService, GetSalesServices>();
             services.AddScoped<IEmailService, EmailService>();
+            services.AddScoped<ISalesSummaryReports, SalesSummaryReports>();
             services.AddScoped<IGetSellerDailySalesResumeService, GetSellerDailySalesResumeService>();
             
 

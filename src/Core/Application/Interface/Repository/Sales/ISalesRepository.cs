@@ -19,4 +19,5 @@ public interface ISalesRepository
     Task<IEnumerable<GetSellerSalesTotalPriceAndQuantityToday>> GetSellerSalesTotalPriceAndQuantityTodayAsync(string userId);
     Task<SellerDailyResumeEntity> GetSellerDailyResumeAsync(Guid? userId);
     Task<IEnumerable<GetSalesSummaryDto>> GetSalesSummaryByDateRangeAsync(DateTime dateStart, DateTime dateEnd);
+    Task<IEnumerable<GetSalesSummaryByDay>> GetSalesSummaryByLastSevenDaysAsync();
 }

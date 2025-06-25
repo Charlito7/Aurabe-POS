@@ -62,6 +62,15 @@ public class SalesController : BaseController
         return Ok(sales);
 
     }
+    [AuthorizeRoles("Manager")]
+    [HttpPost]
+    [Route("GetLastSevenDaysSales", Name = "GetLastSevenDaysSales")]
+    public async Task<ActionResult<HttpStatusCode>> GetLastSevenDaysSalesAsync()
+    {
+        var sales = await _getSalesDailyResumeService.GetSalesResumeLastSevenDaysServiceAsync();
+        return Ok(sales);
+
+    }
     [AuthorizeRoles("Seller", "Admin", "Manager")]
     [HttpPost]
     [Route("GetSaleDetails", Name = "GetSaleDetails")]

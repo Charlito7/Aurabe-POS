@@ -81,4 +81,11 @@ public class SalesRepository : ISalesRepository
 .FromSqlRaw("CALL GetSalesSummaryByDateRange({0},{1})", dateStart, dateEnd)
 .ToListAsync();
     }
+
+    public async Task<IEnumerable<GetSalesSummaryByDay>> GetSalesSummaryByLastSevenDaysAsync()
+    {
+        return await _context.GetSalesSummaryByDays
+.FromSqlRaw("CALL GetWeekSalesSummaryByDateRange()")
+.ToListAsync();
+    }
 }

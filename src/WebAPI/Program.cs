@@ -1,9 +1,7 @@
 using DotNetEnv;
 using Infrastructure;
 using Infrastructure.Constants;
-using Infrastructure.Jobs;
 using Microsoft.AspNetCore.Identity;
-using Quartz;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,22 +16,7 @@ builder.Services.Configure<DataProtectionTokenProviderOptions>(options =>
         options.TokenLifespan = TimeSpan.FromHours(3));
 
 builder.Logging.AddConsole();
-builder.Services.AddQuartz(q =>
-{
-    q.UseMicrosoftDependencyInjectionJobFactory();
 
-    var jobKey = new JobKey("DailyMyServiceJob");
-
-    q.AddJob<DailySummaryReports>(opts => opts.WithIdentity(jobKey));
-
-    q.AddTrigger(opts => opts
-        .ForJob(jobKey)
-        .WithIdentity("DailyMyServiceTrigger")
-        .WithSchedule(CronScheduleBuilder.DailyAtHourAndMinute(14,00))
-    );
-});
-
-builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
 var app = builder.Build();
 app.UseCors("GeneralPolicy");
 
