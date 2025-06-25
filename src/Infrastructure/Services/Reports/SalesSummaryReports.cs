@@ -44,7 +44,7 @@ public class SalesSummaryReports : ISalesSummaryReports
         };
 
         await _emailService.SendEmailAsync(
-    to: new List<string> { "WilbensonCharles7@gmail.com", "francketiennejeudy380@gmail.com", "wadlinepierressaint1@gmail.com", "djerry.g87@gmail.com" },
+    to: new List<string> { "WilbensonCharles7@gmail.com", "francketiennejeudy380@gmail.com","exumejohneder18@gmail.com", "wadlinepierressaint1@gmail.com", "djerry.g87@gmail.com" },
     subject: "(Rapport journalier de vente - Aurabe",
     body: "Bonsoir,\n\nVeuillez trouver ci-joint le rapport journalier des ventes du " + $"Date : {DateTime.Now.AddDays(-1).ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("fr-FR"))} " + " pour la succursale de Jacmel",
     attachments: attachments
