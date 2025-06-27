@@ -1,4 +1,5 @@
 ﻿using Core.Application.Interface.Repository.Sales;
+using Core.Application.Model.Request.Sales;
 using Core.Domain.Entity;
 using Core.Domain.Procedures;
 using Microsoft.EntityFrameworkCore;
@@ -82,10 +83,10 @@ public class SalesRepository : ISalesRepository
 .ToListAsync();
     }
 
-    public async Task<IEnumerable<GetSalesSummaryByDay>> GetSalesSummaryByLastSevenDaysAsync()
+    public async Task<IEnumerable<GetSalesSummaryByDay>> GetSalesSummariesByDateRangeAsync(DateRangeRequest range)
     {
         return await _context.GetSalesSummaryByDays
-.FromSqlRaw("CALL GetWeekSalesSummaryByDateRange()")
+.FromSqlRaw("CALL GetSalesSummariesByDateRange({0},{1},{2})", range.StartDate,range.EndDate, range.TimeZoneOffset!)
 .ToListAsync();
     }
 }

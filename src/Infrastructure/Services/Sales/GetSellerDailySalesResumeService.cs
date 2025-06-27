@@ -4,6 +4,7 @@ using Azure;
 using Core.Application.Commons.ServiceResult;
 using Core.Application.Interface.Repository.Sales;
 using Core.Application.Interface.Services.Sales;
+using Core.Application.Model.Request.Sales;
 using Core.Application.Model.Response.Sales;
 using Core.Domain.Procedures;
 using System;
@@ -32,10 +33,19 @@ public class GetSellerDailySalesResumeService : IGetSellerDailySalesResumeServic
         _userManager = userManager;
     }
 
-    public async Task<ServiceResult<IEnumerable<GetSalesSummaryByDay>>> GetSalesResumeLastSevenDaysServiceAsync()
+    public async Task<ServiceResult<IEnumerable<GetSalesSummaryByDay>>> GetSalesResumeLastSevenDaysServiceAsync(DateRangeRequest range)
     {
-        var dailyResponse = await _salesRepository.GetSalesSummaryByLastSevenDaysAsync();
-        return new ServiceResult<IEnumerable<GetSalesSummaryByDay>>(dailyResponse, true, HttpStatusCode.OK, "");
+        try
+        {
+            var dailyResponse = await _salesRepository.GetSalesSummariesByDateRangeAsync(range);
+            return new ServiceResult<IEnumerable<GetSalesSummaryByDay>>(dailyResponse, true, HttpStatusCode.OK, "");
+
+        }
+        catch(Exception ex)
+        {
+            throw;
+        }
+      
     }
 
     public async Task<ServiceResult<GetSellerDailySalesResumeResponse>> GetSellerDailySalesResumeServiceAsync(ClaimsPrincipal claim)
