@@ -1,4 +1,5 @@
-﻿using Core.Application.Model.Response;
+﻿using Core.Application.Model.Request.Sales;
+using Core.Application.Model.Response;
 using Core.Domain.Entity;
 using Core.Domain.Procedures;
 using System;
@@ -19,5 +20,5 @@ public interface ISalesRepository
     Task<IEnumerable<GetSellerSalesTotalPriceAndQuantityToday>> GetSellerSalesTotalPriceAndQuantityTodayAsync(string userId);
     Task<SellerDailyResumeEntity> GetSellerDailyResumeAsync(Guid? userId);
     Task<IEnumerable<GetSalesSummaryDto>> GetSalesSummaryByDateRangeAsync(DateTime dateStart, DateTime dateEnd);
-    Task<IEnumerable<GetSalesSummaryByDay>> GetSalesSummaryByLastSevenDaysAsync();
+    Task<IEnumerable<GetSalesSummaryByDay>> GetSalesSummariesByDateRangeAsync(DateRangeRequest range);
 }

@@ -65,9 +65,17 @@ public class SalesController : BaseController
     [AuthorizeRoles("Manager")]
     [HttpPost]
     [Route("GetLastSevenDaysSales", Name = "GetLastSevenDaysSales")]
-    public async Task<ActionResult<HttpStatusCode>> GetLastSevenDaysSalesAsync()
+    public async Task<ActionResult<HttpStatusCode>> GetLastSevenDaysSalesAsync([FromBody] DateRangeRequest range)
     {
-        var sales = await _getSalesDailyResumeService.GetSalesResumeLastSevenDaysServiceAsync();
+        if (int.TryParse(Environment.GetEnvironmentVariable("TimeZoneOffset"), out int offset))
+        {
+            range.TimeZoneOffset = offset;
+        }
+        else
+        {
+            range.TimeZoneOffset = -4;
+        }
+        var sales = await _getSalesDailyResumeService.GetSalesResumeLastSevenDaysServiceAsync(range);
         return Ok(sales);
 
     }
