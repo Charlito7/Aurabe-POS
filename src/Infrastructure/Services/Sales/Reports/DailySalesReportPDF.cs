@@ -37,7 +37,7 @@ public class DailySalesReportPDF: IDocument
 
                 col.Item().Text($"Entreprise : Aurabe");
                 col.Item().Text($"Succursale : Jacmel-001");
-                col.Item().Text($"Date : {DateTime.Now.ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("fr-FR"))}");
+                col.Item().Text($"Date : {DateTime.Now.AddDays(-1).ToString("dd MMMM yyyy", new System.Globalization.CultureInfo("fr-FR"))}");
 
                 col.Item().Table(table =>
                 {
